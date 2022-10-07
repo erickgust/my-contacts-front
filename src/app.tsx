@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { ContactsList } from './contacts-list'
 import { Header } from './header'
 
 const Container = styled.div`
@@ -11,6 +12,7 @@ function App () {
   return (
     <Container>
       <Header/>
+      <ContactsList/>
     </Container>
   )
 }
