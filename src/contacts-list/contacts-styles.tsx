@@ -31,3 +31,24 @@ export const Strong = styled.strong`
   font-size: 2.4rem;
   color: #222222;
 `
+
+export const ListContainer = styled.div`
+  margin-top: 2.4rem;
+  margin-bottom: 0.8rem;
+`
+
+export const SortButton = styled.button`
+  display: flex;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.primary.main};
+
+  background-color: transparent;
+  border: none;
+
+  font-weight: 700;
+  font-size: 1.6rem;
+
+  img {
+    margin-left: 0.8rem;
+  }
+`
