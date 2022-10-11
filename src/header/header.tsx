@@ -1,5 +1,5 @@
 import * as S from './header-styles'
-import logo from '@/ui/icons/logo.svg'
+import logo from '@/ui/logo.svg'
 
 export function Header () {
   return (
