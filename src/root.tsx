@@ -16,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Sora', sans-serif;
     background: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.gray[900]};
   }
 
   button {

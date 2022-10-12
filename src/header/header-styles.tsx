@@ -28,6 +28,6 @@ export const Input = styled.input`
   font-size: 1.6rem;
 
   &::placeholder {
-    color: #BCBCBC;
+    color: ${({ theme }) => theme.colors.gray[200]};
   }
 `

@@ -10,6 +10,11 @@ declare module 'styled-components' {
         light: string
         lighter: string
       }
+      gray: {
+        900: string
+        200: string
+        100: string
+      }
     }
   }
 }

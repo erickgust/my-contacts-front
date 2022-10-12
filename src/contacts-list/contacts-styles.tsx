@@ -29,7 +29,6 @@ export const Header = styled.header`${({ theme }) => css`
 
 export const Strong = styled.strong`
   font-size: 2.4rem;
-  color: #222222;
 `
 
 export const ListContainer = styled.div`
@@ -79,7 +78,6 @@ export const ContactInfo = styled.div`
     strong {
       font-weight: 700;
       font-size: 1.6rem;
-      color: #222;
     }
 
     small {
@@ -100,7 +98,7 @@ export const ContactInfo = styled.div`
       font-style: normal;
       display: block;
       font-size: 1.4rem;
-      color: #BCBCBC;
+      color: ${({ theme }) => theme.colors.gray[200]};
       line-height: 1.5;
     }
   }
