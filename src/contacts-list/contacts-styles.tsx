@@ -15,7 +15,7 @@ export const Header = styled.header`${({ theme }) => css`
     text-decoration: none;
     color: ${theme.colors.primary.main};
     padding: 0.8rem 1.6rem;
-    border-radius: 0.4rem;
+    border-radius: 4px;
     border: 2px solid ${theme.colors.primary.main};
     display: inline-block;
     transition: all 200ms ease-in;
@@ -34,7 +34,10 @@ export const Strong = styled.strong`
 
 export const ListContainer = styled.div`
   margin-top: 2.4rem;
-  margin-bottom: 0.8rem;
+
+  header {
+    margin-bottom: 0.8rem;
+  }
 `
 
 export const SortButton = styled.button`
@@ -49,6 +52,68 @@ export const SortButton = styled.button`
   font-size: 1.6rem;
 
   img {
+    margin-left: 0.8rem;
+  }
+`
+
+export const ContactCard = styled.article`
+  & + & {
+    margin-top: 1.6rem;
+  }
+
+  padding: 1.6rem;
+  background-color: #FFF;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+export const ContactInfo = styled.div`
+  .name {
+    display: flex;
+    align-items: center;
+
+    strong {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #222;
+    }
+
+    small {
+      color: ${({ theme }) => theme.colors.primary.main};
+      background-color: ${({ theme }) => theme.colors.primary.lighter};
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+
+      margin-left: 0.8rem;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+  }
+
+  address {
+    span {
+      font-style: normal;
+      display: block;
+      font-size: 1.4rem;
+      color: #BCBCBC;
+      line-height: 1.5;
+    }
+  }
+`
+
+export const ContactActions = styled.div`
+  display: flex;
+  align-items: center;
+
+  button {
+    border: none;
+    background: none;
+    padding: 0;
     margin-left: 0.8rem;
   }
 `
