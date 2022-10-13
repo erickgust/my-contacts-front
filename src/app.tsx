@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { ContactsList } from './contacts-list'
 import { Header } from './header'
+import { Routes } from './routes'
 
 const Container = styled.div`
   width: 100%;
@@ -12,7 +12,7 @@ function App () {
   return (
     <Container>
       <Header/>
-      <ContactsList/>
+      <Routes />
     </Container>
   )
 }
