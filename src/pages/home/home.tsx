@@ -6,7 +6,10 @@ import trash from '@/ui/icons/trash.svg'
 
 export function Home () {
   return (
-    <S.Container>
+    <div>
+      <S.Label>
+        <S.Input placeholder='Pesquisar contato...'/>
+      </S.Label>
       <S.Header>
         <S.Strong>3 contatos</S.Strong>
         <a href="">Novo contato</a>
@@ -44,6 +47,6 @@ export function Home () {
         </S.ContactCard>
 
       </S.ListContainer>
-    </S.Container>
+    </div>
   )
 }
