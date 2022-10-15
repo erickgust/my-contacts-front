@@ -1,5 +1,7 @@
+import { PageHeader } from '@/ui/page-header'
+
 export function NewContact () {
   return (
-    <h1>NewContact</h1>
+    <PageHeader title='Novo contato' />
   )
 }
