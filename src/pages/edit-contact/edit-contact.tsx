@@ -1,4 +1,4 @@
-import { PageHeader } from '@/ui/page-header'
+import { PageHeader } from '@/page-header'
 
 export function EditContact () {
   return (
