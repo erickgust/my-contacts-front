@@ -3,6 +3,7 @@ import * as S from './home-styles'
 import arrow from '@/ui/icons/arrow.svg'
 import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
+import { Link } from 'react-router-dom'
 
 export function Home () {
   return (
@@ -12,7 +13,7 @@ export function Home () {
       </S.Label>
       <S.Header>
         <S.Strong>3 contatos</S.Strong>
-        <a href="">Novo contato</a>
+        <Link to="/new">Novo contato</Link>
       </S.Header>
 
       <S.ListContainer>
@@ -37,9 +38,9 @@ export function Home () {
           </S.ContactInfo>
 
           <S.ContactActions>
-            <a href="/">
+            <Link to="/edit/1">
               <img src={edit} alt="Editar" />
-            </a>
+            </Link>
             <button type='button'>
               <img src={trash} alt="Deletar" />
             </button>
