@@ -7,13 +7,13 @@ type PageHeaderProps = {
 
 export function PageHeader ({ title }: PageHeaderProps) {
   return (
-    <div>
+    <S.Container>
       <S.ReturnLink to="/">
         <img src={arrow} alt="Voltar" />
         <span>Voltar</span>
       </S.ReturnLink>
 
       <S.H1>{title}</S.H1>
-    </div>
+    </S.Container>
   )
 }

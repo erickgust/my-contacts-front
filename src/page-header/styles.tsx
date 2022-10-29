@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+export const Container = styled.div`
+  margin-bottom: 2.4rem;
+`
+
 export const ReturnLink = styled(Link)`
   text-decoration: none;
   display: flex;
