@@ -1,0 +1,48 @@
+import styled from 'styled-components'
+
+export const Overlay = styled.div`
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3.5px);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+
+  display: grid;
+  place-items: center;
+`
+
+export const Modal = styled.div`
+  background-color: #FFF;
+  border-radius: 4px;
+  padding: 2.4rem;
+
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
+
+  width: 100%;
+  max-width: 45rem;
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  p {
+    font-size: 1.6rem;
+  }
+`
+
+export const Footer = styled.footer`
+  margin-top: 3.2rem;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+
+  .cancel {
+    background-color: transparent;
+    border: none;
+    font-size: 1.6rem;
+    color: ${({ theme }) => theme.colors.gray[200]};
+  }
+`
