@@ -1,6 +1,10 @@
 import styled, { css } from 'styled-components'
 
-export const Button = styled.button`${({ theme }) => css`
+type ButtonProps = {
+  danger?: boolean
+}
+
+export const Button = styled.button<ButtonProps>`${({ theme, danger }) => css`
   border: none;
   font-size: 1.6rem;
   border-radius: 4px;
@@ -8,6 +12,7 @@ export const Button = styled.button`${({ theme }) => css`
   font-weight: 700;
   color: #FFF;
   background-color: ${theme.colors.primary.main};
+  transition: background 100ms ease-in;
 
   &:hover {
     background-color: ${theme.colors.primary.light};
@@ -21,4 +26,16 @@ export const Button = styled.button`${({ theme }) => css`
     background-color: #CCC;
     cursor: not-allowed;
   }
+
+  ${danger && css`
+    background-color: ${theme.colors.danger.main};
+
+    &:hover {
+      background-color: ${theme.colors.danger.light};
+    }
+
+    &:active {
+      background-color: ${theme.colors.danger.dark};
+    }
+  `}
 `}`

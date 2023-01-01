@@ -9,7 +9,7 @@ import { Modal } from '@/modal'
 export function Home () {
   return (
     <div>
-      <Modal />
+      <Modal danger />
 
       <S.Label>
         <S.Input placeholder='Pesquisar contato...'/>

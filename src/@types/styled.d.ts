@@ -15,6 +15,11 @@ declare module 'styled-components' {
         200: string
         100: string
       }
+      danger: {
+        light: string
+        main: string
+        dark: string
+      }
     }
   }
 }

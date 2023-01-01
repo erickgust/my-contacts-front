@@ -13,7 +13,11 @@ export const Overlay = styled.div`
   place-items: center;
 `
 
-export const Modal = styled.div`
+type ModalProps = {
+  danger?: boolean
+}
+
+export const Modal = styled.div<ModalProps>`
   background-color: #FFF;
   border-radius: 4px;
   padding: 2.4rem;
@@ -25,6 +29,11 @@ export const Modal = styled.div`
 
   h1 {
     font-size: 2.2rem;
+    color: ${({ theme, danger }) => (
+      danger
+        ? theme.colors.danger.main
+        : theme.colors.gray[900]
+    )};
   }
 
   p {
