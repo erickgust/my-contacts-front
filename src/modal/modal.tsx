@@ -1,4 +1,5 @@
 import { Button } from '@/ui/button'
+import { createPortal } from 'react-dom'
 import * as S from './modal-styles'
 
 type ModalProps = {
@@ -6,7 +7,13 @@ type ModalProps = {
 }
 
 export function Modal ({ danger }: ModalProps) {
-  return (
+  const modalContainer = document.querySelector('[data-js="modal-root"]')
+
+  if (modalContainer === null) {
+    return null
+  }
+
+  return createPortal((
     <S.Overlay>
       <S.Modal danger={danger}>
         <h1>Tem certeza que deseja remover o contato ”Mateus Silva”?</h1>
@@ -18,5 +25,5 @@ export function Modal ({ danger }: ModalProps) {
         </S.Footer>
       </S.Modal>
     </S.Overlay>
-  )
+  ), modalContainer)
 }
