@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Header } from './header'
+import { Header } from './components/header'
 import { Routes } from './routes'
 
 const Container = styled.div`

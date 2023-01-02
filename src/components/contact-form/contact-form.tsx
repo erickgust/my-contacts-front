@@ -1,4 +1,4 @@
-import { FormGroup } from '@/form-group'
+import { FormGroup } from '@/components/form-group'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Select } from '@/ui/select'

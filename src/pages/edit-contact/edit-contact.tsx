@@ -1,5 +1,5 @@
-import { ContactForm } from '@/contact-form'
-import { PageHeader } from '@/page-header'
+import { ContactForm } from '@/components/contact-form'
+import { PageHeader } from '@/components/page-header'
 
 export function EditContact () {
   return (

@@ -4,7 +4,7 @@ import arrow from '@/ui/icons/arrow.svg'
 import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
 import { Link } from 'react-router-dom'
-import { Modal } from '@/modal'
+import { Modal } from '@/components/modal'
 
 export function Home () {
   return (
