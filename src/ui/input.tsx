@@ -1,6 +1,10 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const Input = styled.input`
+type InputProps = {
+  error?: boolean
+}
+
+export const Input = styled.input<InputProps>`
   height: 5.2rem;
   padding: 0 1.6rem;
   font-size: 1.6rem;
@@ -15,4 +19,9 @@ export const Input = styled.input`
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary.main};
   }
+
+  ${({ error, theme }) => error && css`
+    border-color: ${theme.colors.danger.main} !important;
+    color: ${theme.colors.danger.main};
+  `}
 `

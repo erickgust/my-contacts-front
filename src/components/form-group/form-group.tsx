@@ -1,20 +1,16 @@
 import { ReactNode } from 'react'
-import styled from 'styled-components'
+import * as S from './form-group-styles'
 
 type FormGroupProps = {
   children: ReactNode | ReactNode[]
+  error?: string
 }
 
-const Container = styled.div`
-  & + & {
-    margin-top: 1.6rem;
-  }
-`
-
-export function FormGroup ({ children }: FormGroupProps) {
+export function FormGroup ({ children, error }: FormGroupProps) {
   return (
-    <Container>
+    <S.Container>
       {children}
-    </Container>
+      {error && <small>{error}</small>}
+    </S.Container>
   )
 }
