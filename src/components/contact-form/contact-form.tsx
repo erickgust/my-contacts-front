@@ -9,11 +9,32 @@ type ContactFormProps = {
   buttonLabel: string
 }
 
+type ErrorBody = {
+  field: string
+  message: string
+}
+
 export function ContactForm ({ buttonLabel }: ContactFormProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [category, setCategory] = useState('')
+  const [errors, setErrors] = useState<ErrorBody[]>([])
+
+  function handleNameChange (e: React.ChangeEvent<HTMLInputElement>) {
+    setName(e.target.value)
+
+    if (!e.target.value) {
+      setErrors(errors => [
+        ...errors,
+        { field: 'name', message: 'Nome é obrigatório.' },
+      ])
+    } else {
+      setErrors(errors => errors.filter(error => error.field !== 'name'))
+    }
+  }
+
+  console.log(errors)
 
   function handleSubmit (e: React.FormEvent) {
     e.preventDefault()
@@ -26,7 +47,7 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
         <Input
           placeholder='Nome'
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={handleNameChange}
         />
       </FormGroup>
 
