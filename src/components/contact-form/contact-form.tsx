@@ -2,6 +2,7 @@ import { FormGroup } from '@/components/form-group'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Select } from '@/ui/select'
+import { isEmailValid } from '@/utils/isEmailValid'
 import { useState } from 'react'
 import * as S from './contact-form-styles'
 
@@ -34,12 +35,30 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
     }
   }
 
-  console.log(errors)
+  function handleEmailChange (e: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(e.target.value)
+
+    if (e.target.value && !isEmailValid(e.target.value)) {
+      const errorAlreadyExists = errors.find(error => error.field === 'email')
+
+      if (errorAlreadyExists) {
+        return
+      }
+      setErrors(errors => [
+        ...errors,
+        { field: 'email', message: 'E-mail inválido.' },
+      ])
+    } else {
+      setErrors(errors => errors.filter(error => error.field !== 'email'))
+    }
+  }
 
   function handleSubmit (e: React.FormEvent) {
     e.preventDefault()
     console.log({ name, email, phone, category })
   }
+
+  console.log(errors)
 
   return (
     <form onSubmit={handleSubmit}>
@@ -55,7 +74,7 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
         <Input
           placeholder='E-mail'
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={handleEmailChange}
         />
       </FormGroup>
 
