@@ -1,4 +1,5 @@
 import { FormGroup } from '@/components/form-group'
+import { useErrors } from '@/resources/use-errors'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Select } from '@/ui/select'
@@ -20,18 +21,15 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [category, setCategory] = useState('')
-  const [errors, setErrors] = useState<ErrorBody[]>([])
+  const { setError, removeError, getErrorMessageByFieldName } = useErrors()
 
   function handleNameChange (e: React.ChangeEvent<HTMLInputElement>) {
     setName(e.target.value)
 
     if (!e.target.value) {
-      setErrors(errors => [
-        ...errors,
-        { field: 'name', message: 'Nome é obrigatório.' },
-      ])
+      setError({ field: 'name', message: 'Nome é obrigatório.' })
     } else {
-      setErrors(errors => errors.filter(error => error.field !== 'name'))
+      removeError('name')
     }
   }
 
@@ -39,30 +37,16 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
     setEmail(e.target.value)
 
     if (e.target.value && !isEmailValid(e.target.value)) {
-      const errorAlreadyExists = errors.find(error => error.field === 'email')
-
-      if (errorAlreadyExists) {
-        return
-      }
-      setErrors(errors => [
-        ...errors,
-        { field: 'email', message: 'E-mail inválido.' },
-      ])
+      setError({ field: 'email', message: 'E-mail inválido.' })
     } else {
-      setErrors(errors => errors.filter(error => error.field !== 'email'))
+      removeError('email')
     }
-  }
-
-  function getErrorMessageByFieldName (fieldName: string) {
-    return errors.find(error => error.field === fieldName)?.message
   }
 
   function handleSubmit (e: React.FormEvent) {
     e.preventDefault()
     console.log({ name, email, phone, category })
   }
-
-  console.log(errors)
 
   return (
     <form onSubmit={handleSubmit}>
