@@ -53,6 +53,10 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
     }
   }
 
+  function getErrorMessageByFieldName (fieldName: string) {
+    return errors.find(error => error.field === fieldName)?.message
+  }
+
   function handleSubmit (e: React.FormEvent) {
     e.preventDefault()
     console.log({ name, email, phone, category })
@@ -62,24 +66,27 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
+          error={getErrorMessageByFieldName('name')}
           placeholder='Nome'
           value={name}
           onChange={handleNameChange}
         />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('email')}>
         <Input
+          error={getErrorMessageByFieldName('email')}
           placeholder='E-mail'
           value={email}
           onChange={handleEmailChange}
         />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('phone')}>
         <Input
+          error={getErrorMessageByFieldName('phone')}
           placeholder='Telefone'
           value={phone}
           onChange={e => setPhone(e.target.value)}
