@@ -3,6 +3,7 @@ import { useErrors } from '@/resources/use-errors'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Select } from '@/ui/select'
+import { formatPhone } from '@/utils/formatPhone'
 import { isEmailValid } from '@/utils/isEmailValid'
 import { useState } from 'react'
 import * as S from './contact-form-styles'
@@ -43,6 +44,10 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
     }
   }
 
+  function handlePhoneChange (e: React.ChangeEvent<HTMLInputElement>) {
+    setPhone(formatPhone(e.target.value))
+  }
+
   function handleSubmit (e: React.FormEvent) {
     e.preventDefault()
     console.log({ name, email, phone, category })
@@ -74,7 +79,7 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
           error={getErrorMessageByFieldName('phone')}
           placeholder='Telefone'
           value={phone}
-          onChange={e => setPhone(e.target.value)}
+          onChange={handlePhoneChange}
         />
       </FormGroup>
 
