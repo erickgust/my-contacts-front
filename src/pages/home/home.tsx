@@ -13,14 +13,14 @@ export function Home () {
       </S.Label>
       <S.Header>
         <S.Strong>3 contatos</S.Strong>
-        <Link to="/new">Novo contato</Link>
+        <Link to='/new'>Novo contato</Link>
       </S.Header>
 
       <S.ListContainer>
         <header>
           <S.SortButton type='button'>
             <span>Nome</span>
-            <img src={arrow} alt="Arrow" />
+            <img src={arrow} alt='Arrow' />
           </S.SortButton>
         </header>
 
@@ -38,11 +38,11 @@ export function Home () {
           </S.ContactInfo>
 
           <S.ContactActions>
-            <Link to="/edit/1">
-              <img src={edit} alt="Editar" />
+            <Link to='/edit/1'>
+              <img src={edit} alt='Editar' />
             </Link>
             <button type='button'>
-              <img src={trash} alt="Deletar" />
+              <img src={trash} alt='Deletar' />
             </button>
           </S.ContactActions>
         </S.ContactCard>

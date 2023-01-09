@@ -8,8 +8,8 @@ type PageHeaderProps = {
 export function PageHeader ({ title }: PageHeaderProps) {
   return (
     <S.Container>
-      <S.ReturnLink to="/">
-        <img src={arrow} alt="Voltar" />
+      <S.ReturnLink to='/'>
+        <img src={arrow} alt='Voltar' />
         <span>Voltar</span>
       </S.ReturnLink>
 
