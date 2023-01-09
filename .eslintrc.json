@@ -46,6 +46,14 @@
       {
         "ignoreRestSiblings": true
       }
-    ]
+    ],
+    "react/jsx-curly-brace-presence": [
+      "error",
+      {
+        "props": "never",
+        "children": "never"
+      }
+    ],
+    "jsx-quotes": [2, "prefer-single"]
   }
 }
