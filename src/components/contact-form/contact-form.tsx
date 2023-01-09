@@ -49,7 +49,7 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} noValidate>
       <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
           error={getErrorMessageByFieldName('name')}
@@ -63,6 +63,7 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
         <Input
           error={getErrorMessageByFieldName('email')}
           placeholder='E-mail'
+          type='email'
           value={email}
           onChange={handleEmailChange}
         />
@@ -82,11 +83,11 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
           value={category}
           onChange={e => setCategory(e.target.value)}
         >
-          <option value="">Selecione uma categoria</option>
-          <option value="instagram">Instagram</option>
-          <option value="twitter">Twitter</option>
-          <option value="facebook">Facebook</option>
-          <option value="linkedin">Linkedin</option>
+          <option value=''>Selecione uma categoria</option>
+          <option value='instagram'>Instagram</option>
+          <option value='twitter'>Twitter</option>
+          <option value='facebook'>Facebook</option>
+          <option value='linkedin'>Linkedin</option>
         </Select>
       </FormGroup>
 
