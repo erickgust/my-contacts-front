@@ -4,15 +4,39 @@ import arrow from '@/ui/icons/arrow.svg'
 import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { formatPhone } from '@/utils/formatPhone'
+
+type ContactResponse = {
+  category_id: string
+  category_name: string
+  email: string
+  id: string
+  name: string
+  phone: string
+}
 
 export function Home () {
+  const [contacts, setContacts] = useState<ContactResponse[]>([])
+
+  useEffect(() => {
+    fetch('http://localhost:3333/contacts')
+      .then(response => response.json())
+      .then((response) => setContacts(response))
+      .catch(err => console.error(err))
+  }, [])
+
   return (
     <div>
       <S.Label>
         <S.Input placeholder='Pesquisar contato...'/>
       </S.Label>
       <S.Header>
-        <S.Strong>3 contatos</S.Strong>
+        <S.Strong>
+          {contacts.length}
+          {' '}
+          {contacts.length === 1 ? 'contato' : 'contatos'}
+        </S.Strong>
         <Link to='/new'>Novo contato</Link>
       </S.Header>
 
@@ -24,28 +48,32 @@ export function Home () {
           </S.SortButton>
         </header>
 
-        <S.ContactCard>
-          <S.ContactInfo>
-            <div className='name'>
-              <strong>Mateus Silva</strong>
-              <small>Instagram</small>
-            </div>
+        {contacts.map(contact => (
+          <S.ContactCard key={contact.id}>
+            <S.ContactInfo>
+              <div className='name'>
+                <strong>{contact.name}</strong>
+                {contact.category_name && (
+                  <small>{contact.category_name}</small>
+                )}
+              </div>
 
-            <address>
-              <span>mateus@devacademy.com.br</span>
-              <span>(41) 99999-9999</span>
-            </address>
-          </S.ContactInfo>
+              <address>
+                <span>{contact.email}</span>
+                <span>{formatPhone(contact.phone)}</span>
+              </address>
+            </S.ContactInfo>
 
-          <S.ContactActions>
-            <Link to='/edit/1'>
-              <img src={edit} alt='Editar' />
-            </Link>
-            <button type='button'>
-              <img src={trash} alt='Deletar' />
-            </button>
-          </S.ContactActions>
-        </S.ContactCard>
+            <S.ContactActions>
+              <Link to={`/edit/${contact.id}`}>
+                <img src={edit} alt='Editar' />
+              </Link>
+              <button type='button'>
+                <img src={trash} alt='Deletar' />
+              </button>
+            </S.ContactActions>
+          </S.ContactCard>
+        ))}
 
       </S.ListContainer>
     </div>
