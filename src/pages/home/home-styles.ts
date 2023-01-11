@@ -58,7 +58,11 @@ export const ListContainer = styled.div`
   }
 `
 
-export const SortButton = styled.button`
+type SortButtonProps = {
+  orderBy: 'asc' | 'desc'
+}
+
+export const SortButton = styled.button<SortButtonProps>`
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.colors.primary.main};
@@ -71,6 +75,11 @@ export const SortButton = styled.button`
 
   img {
     margin-left: 0.8rem;
+    transition: transform 200ms ease-in;
+
+    ${({ orderBy }) => orderBy === 'asc' && css`
+      transform: rotate(180deg);
+    `}
   }
 `
 
