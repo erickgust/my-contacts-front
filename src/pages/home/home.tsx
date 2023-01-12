@@ -61,12 +61,14 @@ export function Home () {
       </S.Header>
 
       <S.ListContainer>
-        <header>
-          <S.SortButton type='button' onClick={handleToggleOrderBy} orderBy={orderBy}>
-            <span>Nome</span>
-            <img src={arrow} alt='Arrow' />
-          </S.SortButton>
-        </header>
+        {filteredContacts.length > 0 && (
+          <header>
+            <S.SortButton type='button' onClick={handleToggleOrderBy} orderBy={orderBy}>
+              <span>Nome</span>
+              <img src={arrow} alt='Arrow' />
+            </S.SortButton>
+          </header>
+        )}
 
         {filteredContacts.map(contact => (
           <S.ContactCard key={contact.id}>
