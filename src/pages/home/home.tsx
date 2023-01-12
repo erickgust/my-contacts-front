@@ -4,7 +4,7 @@ import arrow from '@/ui/icons/arrow.svg'
 import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { formatPhone } from '@/utils/formatPhone'
 
 type ContactResponse = {
@@ -23,9 +23,9 @@ export function Home () {
   const [orderBy, setOrderBy] = useState<OrderBy>('asc')
   const [search, setSearch] = useState('')
 
-  const filteredContacts = contacts.filter(contact =>
+  const filteredContacts = useMemo(() => contacts.filter(contact =>
     contact.name.toLocaleLowerCase().includes(search.toLowerCase()),
-  )
+  ), [contacts, search])
 
   useEffect(() => {
     fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
