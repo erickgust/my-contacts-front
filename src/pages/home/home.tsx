@@ -21,6 +21,11 @@ type OrderBy = 'asc' | 'desc'
 export function Home () {
   const [contacts, setContacts] = useState<ContactResponse[]>([])
   const [orderBy, setOrderBy] = useState<OrderBy>('asc')
+  const [search, setSearch] = useState('')
+
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLocaleLowerCase().includes(search.toLowerCase()),
+  )
 
   useEffect(() => {
     fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
@@ -33,12 +38,18 @@ export function Home () {
     setOrderBy(orderBy => orderBy === 'asc' ? 'desc' : 'asc')
   }
 
-  console.log(contacts)
+  function handleSearchChange (e: React.ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value)
+  }
 
   return (
     <div>
       <S.Label>
-        <S.Input placeholder='Pesquisar contato...'/>
+        <S.Input
+          placeholder='Pesquisar contato...'
+          value={search}
+          onChange={handleSearchChange}
+        />
       </S.Label>
       <S.Header>
         <S.Strong>
@@ -57,7 +68,7 @@ export function Home () {
           </S.SortButton>
         </header>
 
-        {contacts.map(contact => (
+        {filteredContacts.map(contact => (
           <S.ContactCard key={contact.id}>
             <S.ContactInfo>
               <div className='name'>
