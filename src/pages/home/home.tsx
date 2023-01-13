@@ -1,10 +1,12 @@
+import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
+
 import * as S from './home-styles'
 
 import arrow from '@/ui/icons/arrow.svg'
 import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
-import { Link } from 'react-router-dom'
-import { useEffect, useMemo, useState } from 'react'
+
 import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
 
@@ -34,7 +36,7 @@ export function Home () {
 
     fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
       .then(response => response.json())
-      .then((response) => setContacts(response))
+      .then(response => setContacts(response))
       .catch(err => console.error(err))
       .finally(() => setIsLoading(false))
   }, [orderBy])
