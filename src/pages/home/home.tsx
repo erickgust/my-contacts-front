@@ -34,11 +34,20 @@ export function Home () {
   useEffect(() => {
     setIsLoading(true)
 
-    fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
-      .then(response => response.json())
-      .then(response => setContacts(response))
-      .catch(err => console.error(err))
-      .finally(() => setIsLoading(false))
+    async function fetchContacts () {
+      try {
+        const response = await fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
+        const contacts = await response.json()
+
+        setContacts(contacts)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchContacts()
   }, [orderBy])
 
   function handleToggleOrderBy () {
