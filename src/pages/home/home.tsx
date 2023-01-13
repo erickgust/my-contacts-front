@@ -6,6 +6,7 @@ import trash from '@/ui/icons/trash.svg'
 import { Link } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
 import { formatPhone } from '@/utils/formatPhone'
+import { Loader } from '@/components/loader'
 
 type ContactResponse = {
   category_id: string
@@ -22,16 +23,20 @@ export function Home () {
   const [contacts, setContacts] = useState<ContactResponse[]>([])
   const [orderBy, setOrderBy] = useState<OrderBy>('asc')
   const [search, setSearch] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
 
   const filteredContacts = useMemo(() => contacts.filter(contact =>
     contact.name.toLocaleLowerCase().includes(search.toLowerCase()),
   ), [contacts, search])
 
   useEffect(() => {
+    setIsLoading(true)
+
     fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
       .then(response => response.json())
       .then((response) => setContacts(response))
       .catch(err => console.error(err))
+      .finally(() => setIsLoading(false))
   }, [orderBy])
 
   function handleToggleOrderBy () {
@@ -44,6 +49,8 @@ export function Home () {
 
   return (
     <div>
+      <Loader isLoading={isLoading} />
+
       <S.Label>
         <S.Input
           placeholder='Pesquisar contato...'
