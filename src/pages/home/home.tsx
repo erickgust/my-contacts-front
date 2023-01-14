@@ -9,20 +9,10 @@ import trash from '@/ui/icons/trash.svg'
 
 import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
-
-type ContactResponse = {
-  category_id: string
-  category_name: string
-  email: string
-  id: string
-  name: string
-  phone: string
-}
-
-type OrderBy = 'asc' | 'desc'
+import ContactsService, { Contact, OrderBy } from '@/services/contacts-service'
 
 export function Home () {
-  const [contacts, setContacts] = useState<ContactResponse[]>([])
+  const [contacts, setContacts] = useState<Contact[]>([])
   const [orderBy, setOrderBy] = useState<OrderBy>('asc')
   const [search, setSearch] = useState('')
   const [isLoading, setIsLoading] = useState(true)
@@ -36,8 +26,7 @@ export function Home () {
 
     async function fetchContacts () {
       try {
-        const response = await fetch(`http://localhost:3333/contacts?orderBy=${orderBy}`)
-        const contacts = await response.json()
+        const contacts = await ContactsService.listContacts(orderBy)
 
         setContacts(contacts)
       } catch (err) {
