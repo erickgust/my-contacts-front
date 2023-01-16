@@ -9,7 +9,7 @@ import trash from '@/ui/icons/trash.svg'
 
 import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
-import ContactsService, { Contact, OrderBy } from '@/services/contacts-service'
+import contactsService, { Contact, OrderBy } from '@/services/contacts-service'
 
 export function Home () {
   const [contacts, setContacts] = useState<Contact[]>([])
@@ -26,7 +26,7 @@ export function Home () {
 
     async function fetchContacts () {
       try {
-        const contacts = await ContactsService.listContacts(orderBy)
+        const contacts = await contactsService.listContacts(orderBy)
 
         setContacts(contacts)
       } catch (err) {
