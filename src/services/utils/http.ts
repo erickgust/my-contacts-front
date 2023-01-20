@@ -1,3 +1,4 @@
+import { APIError } from '@/errors/api-error'
 import { delay } from '@/utils/delay'
 
 class HttpClient {
@@ -14,7 +15,7 @@ class HttpClient {
     const contentType = response.headers.get('Content-Type')
 
     if (!contentType?.includes('application/json')) {
-      throw new Error(`${response.status} - ${response.statusText}`)
+      throw new APIError(response)
     }
 
     const body = await response.json()
@@ -23,7 +24,7 @@ class HttpClient {
       return body
     }
 
-    throw new Error(body?.error)
+    throw new APIError(response, body)
   }
 }
 
