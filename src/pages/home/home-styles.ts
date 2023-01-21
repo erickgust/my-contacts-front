@@ -23,10 +23,16 @@ export const Input = styled.input`
   }
 `
 
+export const Divider = styled.hr`
+  border: none;
+  height: 2px;
+  background-color: ${({ theme }) => theme.colors.gray[100]};
+  margin: 1.6rem 0;
+`
+
 export const Header = styled.header`${({ theme }) => css`
   font-weight: 700;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
   a {
@@ -38,6 +44,7 @@ export const Header = styled.header`${({ theme }) => css`
     border: 2px solid ${theme.colors.primary.main};
     display: inline-block;
     transition: all 200ms ease-in;
+    margin-left: auto;
 
     &:hover {
       background-color: ${theme.colors.primary.main};
@@ -48,6 +55,22 @@ export const Header = styled.header`${({ theme }) => css`
 
 export const Strong = styled.strong`
   font-size: 2.4rem;
+`
+
+export const ErrorContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  div {
+    margin-left: 2.4rem;
+
+    strong {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 0.8rem;
+      color: ${({ theme }) => theme.colors.danger.main};
+    }
+  }
 `
 
 export const ListContainer = styled.div`

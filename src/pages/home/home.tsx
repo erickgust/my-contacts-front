@@ -6,16 +6,19 @@ import * as S from './home-styles'
 import arrow from '@/ui/icons/arrow.svg'
 import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
+import sad from '@/ui/icons/sad.svg'
 
 import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
 import contactsService, { Contact, OrderBy } from '@/services/contacts-service'
+import { Button } from '@/ui/button'
 
 export function Home () {
   const [contacts, setContacts] = useState<Contact[]>([])
   const [orderBy, setOrderBy] = useState<OrderBy>('asc')
   const [search, setSearch] = useState('')
   const [isLoading, setIsLoading] = useState(true)
+  const [hasError, setHasError] = useState(false)
 
   const filteredContacts = useMemo(() => contacts.filter(contact =>
     contact.name.toLocaleLowerCase().includes(search.toLowerCase()),
@@ -29,8 +32,8 @@ export function Home () {
         const contacts = await contactsService.listContacts(orderBy)
 
         setContacts(contacts)
-      } catch (err) {
-        console.error(err)
+      } catch {
+        setHasError(true)
       } finally {
         setIsLoading(false)
       }
@@ -59,13 +62,29 @@ export function Home () {
         />
       </S.Label>
       <S.Header>
-        <S.Strong>
-          {contacts.length}
-          {' '}
-          {contacts.length === 1 ? 'contato' : 'contatos'}
-        </S.Strong>
+        {!hasError && (
+          <S.Strong>
+            {contacts.length}
+            {' '}
+            {contacts.length === 1 ? 'contato' : 'contatos'}
+          </S.Strong>
+        )}
         <Link to='/new'>Novo contato</Link>
       </S.Header>
+
+      <S.Divider />
+
+      {hasError && (
+        <S.ErrorContainer>
+          <img src={sad} alt='Rosto triste' />
+
+          <div>
+            <strong>Ocorreu um erro ao obter os seus contatos!</strong>
+
+            <Button>Tentar novamente</Button>
+          </div>
+        </S.ErrorContainer>
+      )}
 
       <S.ListContainer>
         {filteredContacts.length > 0 && (
