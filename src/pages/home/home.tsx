@@ -7,6 +7,7 @@ import arrow from '@/ui/icons/arrow.svg'
 import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
 import sad from '@/ui/icons/sad.svg'
+import empty from '@/ui/icons/empty-box.svg'
 
 import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
@@ -59,15 +60,18 @@ export function Home () {
     <div>
       <Loader isLoading={isLoading} />
 
-      <S.Label>
-        <S.Input
-          placeholder='Pesquisar contato...'
-          value={search}
-          onChange={handleSearchChange}
-        />
-      </S.Label>
-      <S.Header>
-        {!hasError && (
+      {contacts.length > 0 && (
+        <S.Label>
+          <S.Input
+            placeholder='Pesquisar contato...'
+            value={search}
+            onChange={handleSearchChange}
+          />
+        </S.Label>
+      )}
+
+      <S.Header justifyCenter={(!hasError && contacts.length === 0)}>
+        {(!hasError && contacts.length > 0) && (
           <S.Strong>
             {contacts.length}
             {' '}
@@ -93,6 +97,18 @@ export function Home () {
 
       {!hasError && (
         <S.ListContainer>
+          {(contacts.length === 0 && !isLoading) && (
+            <S.EmptyContainer>
+              <img src={empty} alt='Caixa vazia' />
+
+              <p>
+                Você ainda não tem nenhum contato cadastrado! <br />
+                Clique no botão <strong>”Novo contato”</strong> à
+                cima para cadastrar o seu primeiro!
+              </p>
+            </S.EmptyContainer>
+          )}
+
           {filteredContacts.length > 0 && (
             <header>
               <S.SortButton type='button' onClick={handleToggleOrderBy} orderBy={orderBy}>

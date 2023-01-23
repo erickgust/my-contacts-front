@@ -30,7 +30,11 @@ export const Divider = styled.hr`
   margin: 1.6rem 0;
 `
 
-export const Header = styled.header`${({ theme }) => css`
+type HeaderProps = {
+  justifyCenter?: boolean
+}
+
+export const Header = styled.header<HeaderProps>`${({ theme, justifyCenter }) => css`
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -45,6 +49,7 @@ export const Header = styled.header`${({ theme }) => css`
     display: inline-block;
     transition: all 200ms ease-in;
     margin-left: auto;
+    margin-right: ${justifyCenter ? 'auto' : 0};
 
     &:hover {
       background-color: ${theme.colors.primary.main};
@@ -78,6 +83,20 @@ export const ListContainer = styled.div`
 
   header {
     margin-bottom: 0.8rem;
+  }
+`
+
+export const EmptyContainer = styled.div`
+  text-align: center;
+
+  p {
+    margin-top: 1.6rem;
+    font-size: 1.6rem;
+    color: ${({ theme }) => theme.colors.gray[200]};
+
+    strong {
+      color: ${({ theme }) => theme.colors.primary.main};
+    }
   }
 `
 
