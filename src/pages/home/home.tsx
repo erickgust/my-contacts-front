@@ -8,6 +8,7 @@ import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
 import sad from '@/ui/icons/sad.svg'
 import empty from '@/ui/icons/empty-box.svg'
+import magnifierQuestion from '@/ui/icons/magnifier-question.svg'
 
 import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
@@ -107,6 +108,16 @@ export function Home () {
                 cima para cadastrar o seu primeiro!
               </p>
             </S.EmptyContainer>
+          )}
+
+          {filteredContacts.length === 0 && contacts.length > 0 && (
+            <S.SearchNotFoundContainer>
+              <img src={magnifierQuestion} alt='Lupa questionando' />
+
+              <p>
+                Nenhum resultado foi encontrado para <strong>”{search}”</strong>.
+              </p>
+            </S.SearchNotFoundContainer>
           )}
 
           {filteredContacts.length > 0 && (
