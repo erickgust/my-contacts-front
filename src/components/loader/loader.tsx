@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom'
 import { Overlay } from './loader-styles'
+import { Spinner } from '../spinner'
 
 type LoaderProps = {
   isLoading: boolean
@@ -18,7 +19,7 @@ export function Loader ({ isLoading }: LoaderProps) {
 
   return createPortal((
     <Overlay>
-      <div className='loader' />
+      <Spinner size={90} />
     </Overlay>
   ), loaderContainer)
 }
