@@ -9,9 +9,10 @@ export type Contact = {
   phone: string
 }
 
-export type OrderBy = 'asc' | 'desc'
-
+type ContactData = Omit<Contact, 'category_name' | 'id'>
 type ContactResponse = Promise<Contact[]>
+
+export type OrderBy = 'asc' | 'desc'
 
 class ContactsService {
   httpClient: HttpClient
@@ -22,6 +23,10 @@ class ContactsService {
 
   async listContacts (orderBy: OrderBy = 'asc'): ContactResponse {
     return this.httpClient.get(`/contacts?orderBy=${orderBy}`)
+  }
+
+  async createContact (contact: ContactData) {
+    return this.httpClient.post('/contacts', contact)
   }
 }
 

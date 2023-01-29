@@ -5,7 +5,10 @@ export function EditContact () {
   return (
     <>
       <PageHeader title='Editar Mateus Silva' />
-      <ContactForm buttonLabel='Salvar alterações'></ContactForm>
+      <ContactForm
+        buttonLabel='Salvar alterações'
+        onSubmit={() => {}}
+      />
     </>
   )
 }

@@ -1,4 +1,5 @@
 import { FormGroup } from '@/components/form-group'
+import { FormData } from '@/pages/new-contact'
 import { useErrors } from '@/resources/use-errors'
 import categoriesService, { Category } from '@/services/categories-service'
 import { Button } from '@/ui/button'
@@ -11,16 +12,17 @@ import * as S from './contact-form-styles'
 
 type ContactFormProps = {
   buttonLabel: string
+  onSubmit: (data: FormData) => void
 }
 
-export function ContactForm ({ buttonLabel }: ContactFormProps) {
+export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [categoryId, setCategoryId] = useState('')
-  const { errors, setError, removeError, getErrorMessageByFieldName } = useErrors()
   const [categories, setCategories] = useState<Category[]>([])
   const [isLoadingCategories, setIsLoadingCategories] = useState(true)
+  const { errors, setError, removeError, getErrorMessageByFieldName } = useErrors()
 
   const isFormValid = Boolean(name && errors.length === 0)
 
@@ -64,6 +66,13 @@ export function ContactForm ({ buttonLabel }: ContactFormProps) {
 
   function handleSubmit (e: React.FormEvent) {
     e.preventDefault()
+
+    onSubmit({
+      name,
+      email,
+      phone,
+      categoryId,
+    })
   }
 
   return (
