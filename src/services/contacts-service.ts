@@ -26,7 +26,7 @@ class ContactsService {
   }
 
   async createContact (contact: ContactData) {
-    return this.httpClient.post('/contacts', contact)
+    return this.httpClient.post('/contacts', { body: contact })
   }
 }
 

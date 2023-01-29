@@ -1,6 +1,11 @@
 import { APIError } from '@/errors/api-error'
 import { delay } from '@/utils/delay'
 
+type Options = {
+  headers?: Record<string, string>
+  body?: Record<string, unknown>
+}
+
 class HttpClient {
   baseUrl: string
 
@@ -27,30 +32,31 @@ class HttpClient {
     throw new APIError(response, body)
   }
 
-  createRequest <T> (method: string) {
-    return (path: string, body: T) => {
+  createRequest (method: string) {
+    return (path: string, options?: Options) => {
       return this.request(path, {
         method,
-        body: JSON.stringify(body),
+        body: JSON.stringify(options?.body),
         headers: {
           'Content-Type': 'application/json',
+          ...options?.headers,
         },
       })
     }
   }
 
-  get (path: string) {
-    return this.request(path)
+  get (path: string, options?: Options) {
+    return this.request(path, { headers: options?.headers })
   }
 
-  post <T> (path: string, body: T) {
+  post (path: string, options?: Options) {
     const request = this.createRequest('POST')
-    return request(path, body)
+    return request(path, options)
   }
 
-  put <T> (path: string, body: T) {
+  put (path: string, options?: Options) {
     const request = this.createRequest('PUT')
-    return request(path, body)
+    return request(path, options)
   }
 }
 
