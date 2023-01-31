@@ -8,11 +8,12 @@ import { Select } from '@/ui/select'
 import { formatPhone } from '@/utils/formatPhone'
 import { isEmailValid } from '@/utils/isEmailValid'
 import { useEffect, useState } from 'react'
+import { Spinner } from '../spinner'
 import * as S from './contact-form-styles'
 
 type ContactFormProps = {
   buttonLabel: string
-  onSubmit: (data: FormData) => void
+  onSubmit: (data: FormData) => Promise<void>
 }
 
 export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
@@ -22,6 +23,7 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
   const [categoryId, setCategoryId] = useState('')
   const [categories, setCategories] = useState<Category[]>([])
   const [isLoadingCategories, setIsLoadingCategories] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(true)
   const { errors, setError, removeError, getErrorMessageByFieldName } = useErrors()
 
   const isFormValid = Boolean(name && errors.length === 0)
@@ -64,15 +66,14 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
     setPhone(formatPhone(e.target.value))
   }
 
-  function handleSubmit (e: React.FormEvent) {
+  async function handleSubmit (e: React.FormEvent) {
     e.preventDefault()
 
-    onSubmit({
-      name,
-      email,
-      phone,
-      categoryId,
-    })
+    setIsSubmitting(true)
+
+    await onSubmit({ name, email, phone, categoryId })
+
+    setIsSubmitting(false)
   }
 
   return (
@@ -83,6 +84,7 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
           placeholder='Nome*'
           value={name}
           onChange={handleNameChange}
+          disabled={isSubmitting}
         />
       </FormGroup>
 
@@ -93,6 +95,7 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
           type='email'
           value={email}
           onChange={handleEmailChange}
+          disabled={isSubmitting}
         />
       </FormGroup>
 
@@ -102,6 +105,7 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
           placeholder='Telefone'
           value={phone}
           onChange={handlePhoneChange}
+          disabled={isSubmitting}
         />
       </FormGroup>
 
@@ -109,7 +113,7 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
         <Select
           value={categoryId}
           onChange={e => setCategoryId(e.target.value)}
-          disabled={isLoadingCategories}
+          disabled={isLoadingCategories || isSubmitting}
         >
           <option value=''>Selecione uma categoria</option>
 
@@ -122,7 +126,10 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
       </FormGroup>
 
       <S.ButtonContainer>
-        <Button disabled={!isFormValid}>{buttonLabel}</Button>
+        <Button type='submit' disabled={!isFormValid || isSubmitting}>
+          {!isSubmitting && buttonLabel}
+          {isSubmitting && <Spinner size={16} />}
+        </Button>
       </S.ButtonContainer>
     </form>
   )
