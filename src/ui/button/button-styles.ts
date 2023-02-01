@@ -13,6 +13,9 @@ export const Button = styled.button<ButtonProps>`${({ theme, danger }) => css`
   color: #FFF;
   background-color: ${theme.colors.primary.main};
   transition: background 100ms ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background-color: ${theme.colors.primary.light};

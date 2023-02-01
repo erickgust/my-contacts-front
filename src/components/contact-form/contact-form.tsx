@@ -8,7 +8,6 @@ import { Select } from '@/ui/select'
 import { formatPhone } from '@/utils/formatPhone'
 import { isEmailValid } from '@/utils/isEmailValid'
 import { useEffect, useState } from 'react'
-import { Spinner } from '../spinner'
 import * as S from './contact-form-styles'
 
 type ContactFormProps = {
@@ -126,9 +125,8 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
       </FormGroup>
 
       <S.ButtonContainer>
-        <Button type='submit' disabled={!isFormValid || isSubmitting}>
-          {!isSubmitting && buttonLabel}
-          {isSubmitting && <Spinner size={16} />}
+        <Button type='submit' disabled={!isFormValid} isLoading={isSubmitting}>
+          {buttonLabel}
         </Button>
       </S.ButtonContainer>
     </form>
