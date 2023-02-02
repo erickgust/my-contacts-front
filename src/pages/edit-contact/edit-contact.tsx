@@ -7,7 +7,7 @@ export function EditContact () {
       <PageHeader title='Editar Mateus Silva' />
       <ContactForm
         buttonLabel='Salvar alterações'
-        onSubmit={() => {}}
+        onSubmit={async () => {}}
       />
     </>
   )
