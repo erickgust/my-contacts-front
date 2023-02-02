@@ -4,6 +4,7 @@ import { App } from './app'
 
 import 'normalize.css'
 import { BrowserRouter } from 'react-router-dom'
+import { ToastContainer } from './components/toast/toast-container'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -30,6 +31,7 @@ function Root () {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        <ToastContainer />
         <App />
       </ThemeProvider>
     </BrowserRouter>
