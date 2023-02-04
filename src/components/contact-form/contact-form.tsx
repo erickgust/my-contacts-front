@@ -22,7 +22,7 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
   const [categoryId, setCategoryId] = useState('')
   const [categories, setCategories] = useState<Category[]>([])
   const [isLoadingCategories, setIsLoadingCategories] = useState(true)
-  const [isSubmitting, setIsSubmitting] = useState(true)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const { errors, setError, removeError, getErrorMessageByFieldName } = useErrors()
 
   const isFormValid = Boolean(name && errors.length === 0)
