@@ -11,14 +11,25 @@ export type FormData = {
 
 export function NewContact () {
   async function handleSubmit (data: FormData) {
-    const contact = {
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      category_id: data.categoryId,
-    }
+    try {
+      const contact = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        category_id: data.categoryId,
+      }
 
-    const response = await contactsService.createContact(contact)
+      await contactsService.createContact(contact)
+    } catch {
+      const event = new CustomEvent('addtoast', {
+        detail: {
+          message: 'Ocorreu um erro ao cadastrar o contato',
+          type: 'error',
+        },
+      })
+
+      document.dispatchEvent(event)
+    }
   }
 
   return (
