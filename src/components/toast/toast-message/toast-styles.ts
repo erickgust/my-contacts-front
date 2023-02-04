@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { ToastType } from '../toast-types'
 
 const colorVariants = {
   success: css`
@@ -11,8 +12,6 @@ const colorVariants = {
     background-color: ${({ theme }) => theme.colors.primary.main};
   `,
 }
-
-type ToastType = 'success' | 'error' | 'default'
 
 type ContainerProps = {
   type: ToastType

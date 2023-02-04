@@ -1,10 +1,11 @@
 import * as S from './toast-styles'
 import xCircleIcon from '@/ui/icons/x-circle.svg'
 import checkCircleIcon from '@/ui/icons/check-circle.svg'
+import { ToastType } from '../toast-types'
 
 type ToastMessageProps = {
   message: string
-  type?: 'default' | 'error' | 'success'
+  type?: ToastType
 }
 
 export function ToastMessage ({ message, type = 'default' }: ToastMessageProps) {
