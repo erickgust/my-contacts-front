@@ -1,17 +1,13 @@
 import { ToastType } from '@/components/toast/toast-types'
+import EventManager from '@/lib/event-manager'
 
-type ToastData = {
+export const toastEventManager = new EventManager()
+
+export type ToastData = {
   message: string;
   type: ToastType
 }
 
 export function toast (data: ToastData) {
-  const event = new CustomEvent('addtoast', {
-    detail: {
-      message: data.message,
-      type: data.type,
-    },
-  })
-
-  document.dispatchEvent(event)
+  toastEventManager.notify('addtoast', data)
 }

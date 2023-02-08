@@ -1,3 +1,4 @@
+import { ToastData, toastEventManager } from '@/utils/toast'
 import { useEffect, useState } from 'react'
 import { ToastMessage } from '../toast-message'
 import { ToastType } from '../toast-types'
@@ -13,21 +14,16 @@ export function ToastContainer () {
   const [toasts, setToasts] = useState<Toast[]>([])
 
   useEffect(() => {
-    const handleAddToast = (e: CustomEventInit<Toast>) => {
-      if (!e.detail) return
-
-      const { type, message } = e.detail
-
+    const handleAddToast = ({ message, type }: ToastData) => {
       setToasts((oldMessages) => [
         ...oldMessages,
         { message, type, id: Math.random() },
       ])
     }
 
-    document.addEventListener('addtoast', handleAddToast)
-
+    toastEventManager.on('addtoast', handleAddToast)
     return () => {
-      document.removeEventListener('addtoast', handleAddToast)
+      toastEventManager.off('addtoast', handleAddToast)
     }
   }, [])
 
