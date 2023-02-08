@@ -15,8 +15,8 @@ export function ToastContainer () {
 
   useEffect(() => {
     const handleAddToast = ({ message, type }: ToastData) => {
-      setToasts((oldMessages) => [
-        ...oldMessages,
+      setToasts((prevToasts) => [
+        ...prevToasts,
         { message, type, id: Math.random() },
       ])
     }
@@ -27,13 +27,19 @@ export function ToastContainer () {
     }
   }, [])
 
+  function handleRemoveToast (id: number) {
+    setToasts((prevToasts) => prevToasts.filter(toast => toast.id !== id))
+  }
+
   return (
     <S.Container>
       {toasts.map((message) => (
         <ToastMessage
+          id={message.id}
           key={message.id}
           type={message.type}
           message={message.message}
+          onRemoveToast={handleRemoveToast}
         />
       ))}
     </S.Container>
