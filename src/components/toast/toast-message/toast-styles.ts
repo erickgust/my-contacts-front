@@ -14,7 +14,7 @@ const colorVariants = {
 }
 
 type ContainerProps = {
-  type: ToastType
+  type?: ToastType
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -41,5 +41,5 @@ export const Container = styled.div<ContainerProps>`
     margin-top: 1.2rem;
   }
 
-  ${({ type }) => colorVariants[type] || colorVariants.default}
+  ${({ type }) => colorVariants[type || 'default'] || colorVariants.default}
 `

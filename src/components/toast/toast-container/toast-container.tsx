@@ -4,7 +4,7 @@ import { ToastMessage } from '../toast-message'
 import { ToastType } from '../toast-types'
 import * as S from './container-styles'
 
-type Toast = {
+export type Toast = {
   message: string
   type?: ToastType
   id: number
@@ -33,12 +33,10 @@ export function ToastContainer () {
 
   return (
     <S.Container>
-      {toasts.map((message) => (
+      {toasts.map((toast) => (
         <ToastMessage
-          id={message.id}
-          key={message.id}
-          type={message.type}
-          message={message.message}
+          key={toast.id}
+          toast={toast}
           onRemoveToast={handleRemoveToast}
         />
       ))}
