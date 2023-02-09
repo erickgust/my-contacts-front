@@ -16,7 +16,12 @@ export function ToastMessage (props: ToastMessageProps) {
   }
 
   return (
-    <S.Container type={toast.type} onClick={handleRemoveToast}>
+    <S.Container
+      type={toast.type}
+      onClick={handleRemoveToast}
+      role='button'
+      tabIndex={0}
+    >
       {toast.type === 'error' && <img src={xCircleIcon} alt='X icon' />}
       {toast.type === 'success' && <img src={checkCircleIcon} alt='Check icon' />}
 
