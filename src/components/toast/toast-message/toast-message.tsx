@@ -2,6 +2,7 @@ import * as S from './toast-styles'
 import xCircleIcon from '@/ui/icons/x-circle.svg'
 import checkCircleIcon from '@/ui/icons/check-circle.svg'
 import { Toast } from '../toast-container'
+import { useEffect } from 'react'
 
 type ToastMessageProps = {
   toast: Toast
@@ -14,6 +15,16 @@ export function ToastMessage (props: ToastMessageProps) {
   function handleRemoveToast () {
     onRemoveToast(toast.id)
   }
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      onRemoveToast(toast.id)
+    }, 5000)
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [toast.id, onRemoveToast])
 
   return (
     <S.Container

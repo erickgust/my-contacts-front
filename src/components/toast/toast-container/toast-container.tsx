@@ -1,5 +1,5 @@
 import { ToastData, toastEventManager } from '@/utils/toast'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { ToastMessage } from '../toast-message'
 import { ToastType } from '../toast-types'
 import * as S from './container-styles'
@@ -27,9 +27,9 @@ export function ToastContainer () {
     }
   }, [])
 
-  function handleRemoveToast (id: number) {
+  const handleRemoveToast = useCallback((id: number) => {
     setToasts((prevToasts) => prevToasts.filter(toast => toast.id !== id))
-  }
+  }, [])
 
   return (
     <S.Container>
