@@ -8,10 +8,10 @@ export function ToastContainer () {
   const [toasts, setToasts] = useState<Toast[]>([])
 
   useEffect(() => {
-    const handleAddToast = ({ message, type }: ToastData) => {
+    const handleAddToast = ({ message, type, duration }: ToastData) => {
       setToasts((prevToasts) => [
         ...prevToasts,
-        { message, type, id: Math.random() },
+        { message, type, duration, id: Math.random() },
       ])
     }
 

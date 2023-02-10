@@ -19,12 +19,12 @@ export function ToastMessage (props: ToastMessageProps) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       onRemoveToast(toast.id)
-    }, 5000)
+    }, toast.duration || 5000)
 
     return () => {
       clearTimeout(timeoutId)
     }
-  }, [toast.id, onRemoveToast])
+  }, [toast, onRemoveToast])
 
   return (
     <S.Container
