@@ -1,14 +1,8 @@
-import { ToastData, toastEventManager } from '@/utils/toast'
+import { toastEventManager } from '@/utils/toast'
 import { useCallback, useEffect, useState } from 'react'
 import { ToastMessage } from '../toast-message'
-import { ToastType } from '../toast-types'
+import { Toast, ToastData } from '../toast-types'
 import * as S from './container-styles'
-
-export type Toast = {
-  message: string
-  type?: ToastType
-  id: number
-}
 
 export function ToastContainer () {
   const [toasts, setToasts] = useState<Toast[]>([])

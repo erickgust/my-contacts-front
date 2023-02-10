@@ -1,8 +1,8 @@
 import * as S from './toast-styles'
 import xCircleIcon from '@/ui/icons/x-circle.svg'
 import checkCircleIcon from '@/ui/icons/check-circle.svg'
-import { Toast } from '../toast-container'
 import { useEffect } from 'react'
+import { Toast } from '../toast-types'
 
 type ToastMessageProps = {
   toast: Toast
