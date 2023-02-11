@@ -21,11 +21,11 @@ class ContactsService {
     this.httpClient = new HttpClient('http://localhost:3333')
   }
 
-  async listContacts (orderBy: OrderBy = 'asc'): ContactResponse {
+  listContacts (orderBy: OrderBy = 'asc'): ContactResponse {
     return this.httpClient.get(`/contacts?orderBy=${orderBy}`)
   }
 
-  async createContact (contact: ContactData) {
+  createContact (contact: ContactData) {
     return this.httpClient.post('/contacts', { body: contact })
   }
 }
