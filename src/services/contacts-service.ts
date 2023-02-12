@@ -25,6 +25,10 @@ class ContactsService {
     return this.httpClient.get(`/contacts?orderBy=${orderBy}`)
   }
 
+  getContactById (id: string): Promise<Contact> {
+    return this.httpClient.get(`/contacts/${id}`)
+  }
+
   createContact (contact: ContactData) {
     return this.httpClient.post('/contacts', { body: contact })
   }
