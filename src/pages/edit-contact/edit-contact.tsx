@@ -14,6 +14,7 @@ type Params = {
 
 export function EditContact () {
   const [isLoading, setIsLoading] = useState(true)
+  const [contactName, setContactName] = useState('')
   const contactFormRef = useRef<ContactFormRef>(null)
   const { id } = useParams<Params>()
   const history = useHistory()
@@ -21,10 +22,11 @@ export function EditContact () {
   useEffect(() => {
     async function loadContact () {
       try {
-        const contactData = await contactsService.getContactById(id)
+        const contact = await contactsService.getContactById(id)
 
-        contactFormRef.current?.setFieldsValue(contactData)
+        contactFormRef.current?.setFieldsValue(contact)
         setIsLoading(false)
+        setContactName(contact.name)
       } catch {
         history.push('/')
 
@@ -42,7 +44,10 @@ export function EditContact () {
     <>
       <Loader isLoading={isLoading} />
 
-      <PageHeader title='Editar Mateus Silva' />
+      <PageHeader
+        title={isLoading ? 'Carregando...' : `Editar ${contactName}`}
+      />
+
       <ContactForm
         ref={contactFormRef}
         buttonLabel='Salvar alterações'
