@@ -1,13 +1,14 @@
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import { FormGroup } from '@/components/form-group'
 import { FormData } from '@/pages/new-contact'
 import { useErrors } from '@/resources/use-errors'
 import categoriesService, { Category } from '@/services/categories-service'
+import { Contact } from '@/services/contacts-service'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Select } from '@/ui/select'
 import { formatPhone } from '@/utils/formatPhone'
 import { isEmailValid } from '@/utils/isEmailValid'
-import { useEffect, useState } from 'react'
 import * as S from './contact-form-styles'
 
 type ContactFormProps = {
@@ -15,7 +16,14 @@ type ContactFormProps = {
   onSubmit: (data: FormData) => Promise<void>
 }
 
-export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
+export type ContactFormRef = {
+  setFieldsValue: (contact: Contact) => void
+}
+
+const ContactForm = forwardRef<ContactFormRef, ContactFormProps>((
+  { buttonLabel, onSubmit },
+  ref,
+) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -26,6 +34,15 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
   const { errors, setError, removeError, getErrorMessageByFieldName } = useErrors()
 
   const isFormValid = Boolean(name && errors.length === 0)
+
+  useImperativeHandle(ref, () => ({
+    setFieldsValue: (contact) => {
+      setName(contact.name)
+      setEmail(contact.email)
+      setPhone(contact.phone)
+      setCategoryId(contact.category_id)
+    },
+  }), [])
 
   useEffect(() => {
     async function loadCategories () {
@@ -131,4 +148,8 @@ export function ContactForm ({ buttonLabel, onSubmit }: ContactFormProps) {
       </S.ButtonContainer>
     </form>
   )
-}
+})
+
+ContactForm.displayName = 'ContactForm'
+
+export { ContactForm }

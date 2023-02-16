@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 
-import { ContactForm } from '@/components/contact-form'
+import { ContactForm, ContactFormRef } from '@/components/contact-form'
 import { PageHeader } from '@/components/page-header'
 
 import contactsService from '@/services/contacts-service'
@@ -14,7 +14,7 @@ type Params = {
 
 export function EditContact () {
   const [isLoading, setIsLoading] = useState(true)
-
+  const contactFormRef = useRef<ContactFormRef>(null)
   const { id } = useParams<Params>()
   const history = useHistory()
 
@@ -23,7 +23,7 @@ export function EditContact () {
       try {
         const contactData = await contactsService.getContactById(id)
 
-        console.log(contactData)
+        contactFormRef.current?.setFieldsValue(contactData)
         setIsLoading(false)
       } catch {
         history.push('/')
@@ -44,6 +44,7 @@ export function EditContact () {
 
       <PageHeader title='Editar Mateus Silva' />
       <ContactForm
+        ref={contactFormRef}
         buttonLabel='Salvar alterações'
         onSubmit={async () => {}}
       />
