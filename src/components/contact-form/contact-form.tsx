@@ -1,14 +1,18 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
-import { FormGroup } from '@/components/form-group'
+
 import { FormData } from '@/pages/new-contact'
-import { useErrors } from '@/resources/use-errors'
-import categoriesService, { Category } from '@/services/categories-service'
 import { Contact } from '@/services/contacts-service'
+
+import categoriesService, { Category } from '@/services/categories-service'
+
+import { formatPhone } from '@/utils/formatPhone'
+import { isEmailValid } from '@/utils/isEmailValid'
+import { useErrors } from '@/resources/use-errors'
+
+import { FormGroup } from '@/components/form-group'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Select } from '@/ui/select'
-import { formatPhone } from '@/utils/formatPhone'
-import { isEmailValid } from '@/utils/isEmailValid'
 import * as S from './contact-form-styles'
 
 type ContactFormProps = {

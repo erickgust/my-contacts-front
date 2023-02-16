@@ -3,9 +3,9 @@ import { useHistory, useParams } from 'react-router-dom'
 
 import { ContactForm, ContactFormRef } from '@/components/contact-form'
 import { PageHeader } from '@/components/page-header'
+import { Loader } from '@/components/loader'
 
 import contactsService from '@/services/contacts-service'
-import { Loader } from '@/components/loader'
 import { toast } from '@/utils/toast'
 
 type Params = {

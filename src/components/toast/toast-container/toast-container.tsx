@@ -1,7 +1,7 @@
-import { toastEventManager } from '@/utils/toast'
 import { useCallback, useEffect, useState } from 'react'
-import { ToastMessage } from '../toast-message'
 import { Toast, ToastData } from '../toast-types'
+import { toastEventManager } from '@/utils/toast'
+import { ToastMessage } from '../toast-message'
 import * as S from './container-styles'
 
 export function ToastContainer () {
