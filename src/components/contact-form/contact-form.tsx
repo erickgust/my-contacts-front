@@ -22,6 +22,7 @@ type ContactFormProps = {
 
 export type ContactFormRef = {
   setFieldsValue: (contact: Contact) => void
+  resetFields: () => void
 }
 
 const ContactForm = forwardRef<ContactFormRef, ContactFormProps>((
@@ -45,6 +46,12 @@ const ContactForm = forwardRef<ContactFormRef, ContactFormProps>((
       setEmail(contact.email ?? '')
       setPhone(formatPhone(contact.phone ?? ''))
       setCategoryId(contact.category_id ?? '')
+    },
+    resetFields: () => {
+      setName('')
+      setEmail('')
+      setPhone('')
+      setCategoryId('')
     },
   }), [])
 
