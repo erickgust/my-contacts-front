@@ -7,6 +7,7 @@ import { Loader } from '@/components/loader'
 
 import contactsService from '@/services/contacts-service'
 import { toast } from '@/utils/toast'
+import { FormData } from '../new-contact'
 
 type Params = {
   id: string
@@ -40,6 +41,30 @@ export function EditContact () {
     loadContact()
   }, [id, history])
 
+  async function handleSubmit (data: FormData) {
+    try {
+      const contact = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        category_id: data.categoryId,
+      }
+
+      const updatedContact = await contactsService.updateContact(id, contact)
+
+      setContactName(updatedContact.name)
+      toast({
+        message: 'Contato editado com sucesso!',
+        type: 'success',
+      })
+    } catch {
+      toast({
+        message: 'Ocorreu um erro ao editar o contato!',
+        type: 'error',
+      })
+    }
+  }
+
   return (
     <>
       <Loader isLoading={isLoading} />
@@ -51,7 +76,7 @@ export function EditContact () {
       <ContactForm
         ref={contactFormRef}
         buttonLabel='Salvar alterações'
-        onSubmit={async () => {}}
+        onSubmit={handleSubmit}
       />
     </>
   )
