@@ -4,8 +4,9 @@ import { createPortal } from 'react-dom'
 import * as S from './modal-styles'
 
 type ModalProps = {
-  danger?: boolean
   title: string
+  danger?: boolean
+  isVisible: boolean
   children: ReactNode | ReactNode[]
   cancelLabel?: string
   confirmLabel?: string
@@ -15,8 +16,9 @@ type ModalProps = {
 
 export function Modal (props: ModalProps) {
   const {
-    danger,
     title,
+    danger,
+    isVisible,
     children,
     onCancel,
     onConfirm,
@@ -27,6 +29,10 @@ export function Modal (props: ModalProps) {
   const modalContainer = document.querySelector('[data-js="modal-root"]')
 
   if (modalContainer === null) {
+    return null
+  }
+
+  if (!isVisible) {
     return null
   }
 
