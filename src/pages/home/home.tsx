@@ -14,6 +14,7 @@ import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
 import contactsService, { Contact, OrderBy } from '@/services/contacts-service'
 import { Button } from '@/ui/button'
+import { Modal } from '@/components/modal'
 
 export function Home () {
   const [contacts, setContacts] = useState<Contact[]>([])
@@ -60,6 +61,15 @@ export function Home () {
   return (
     <div>
       <Loader isLoading={isLoading} />
+      <Modal
+        danger
+        title='Tem certeza que deseja remover o contato ”Mateus Silva”?'
+        confirmLabel='Deletar'
+        onCancel={() => alert('cancelou')}
+        onConfirm={() => alert('confirmou')}
+      >
+        <p>Esta ação não poderá ser desfeita!</p>
+      </Modal>
 
       {contacts.length > 0 && (
         <S.Label>
