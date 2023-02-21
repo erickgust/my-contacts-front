@@ -19,6 +19,10 @@ class HttpClient {
     const response = await fetch(this.baseUrl + path, options)
     const contentType = response.headers.get('Content-Type')
 
+    if (response.status === 204) {
+      return
+    }
+
     if (!contentType?.includes('application/json')) {
       throw new APIError(response)
     }
@@ -57,6 +61,13 @@ class HttpClient {
   put (path: string, options?: Options) {
     const request = this.createRequest('PUT')
     return request(path, options)
+  }
+
+  delete (path: string, options?: Options) {
+    return this.request(path, {
+      method: 'DELETE',
+      headers: options?.headers,
+    })
   }
 }
 

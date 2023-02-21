@@ -36,6 +36,10 @@ class ContactsService {
   updateContact (id: string, contact: ContactData) {
     return this.httpClient.put(`/contacts/${id}`, { body: contact })
   }
+
+  deleteContact (id: string) {
+    return this.httpClient.delete(`/contacts/${id}`)
+  }
 }
 
 const contactsService = new ContactsService()

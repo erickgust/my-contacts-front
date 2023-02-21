@@ -15,6 +15,7 @@ import { Loader } from '@/components/loader'
 import contactsService, { Contact, OrderBy } from '@/services/contacts-service'
 import { Button } from '@/ui/button'
 import { Modal } from '@/components/modal'
+import { toast } from '@/utils/toast'
 
 export function Home () {
   const [contacts, setContacts] = useState<Contact[]>([])
@@ -63,6 +64,33 @@ export function Home () {
     fetchContacts(orderBy)
   }
 
+  async function handleConfirmDeleteContact () {
+    try {
+      if (contactBeingDeleted === null) {
+        return
+      }
+
+      await contactsService.deleteContact(contactBeingDeleted.id)
+
+      setContacts(contacts =>
+        contacts.filter(contact => contact.id !== contactBeingDeleted?.id),
+      )
+
+      toast({
+        message: 'Contato deletado com sucesso!',
+        type: 'success',
+      })
+    } catch {
+      toast({
+        message: 'Ocorreu um erro ao deletar o contato!',
+        type: 'error',
+      })
+    } finally {
+      setIsDeleteModalVisible(false)
+      setContactBeingDeleted(null)
+    }
+  }
+
   function handleDeleteContact (contact: Contact) {
     setIsDeleteModalVisible(true)
     setContactBeingDeleted(contact)
@@ -84,7 +112,7 @@ export function Home () {
         }
         confirmLabel='Deletar'
         onCancel={handleCloseDeleteModal}
-        onConfirm={() => alert('confirmou')}
+        onConfirm={handleConfirmDeleteContact}
       >
         <p>Esta ação não poderá ser desfeita!</p>
       </Modal>
