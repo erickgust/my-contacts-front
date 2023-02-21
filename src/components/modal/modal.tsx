@@ -7,6 +7,7 @@ type ModalProps = {
   title: string
   danger?: boolean
   isVisible: boolean
+  isLoading?: boolean
   children: ReactNode | ReactNode[]
   cancelLabel?: string
   confirmLabel?: string
@@ -19,6 +20,7 @@ export function Modal (props: ModalProps) {
     title,
     danger,
     isVisible,
+    isLoading,
     children,
     onCancel,
     onConfirm,
@@ -49,6 +51,7 @@ export function Modal (props: ModalProps) {
             type='button'
             className='cancel'
             onClick={onCancel}
+            disabled={isLoading}
           >
             {cancelLabel}
           </button>
@@ -57,6 +60,7 @@ export function Modal (props: ModalProps) {
             type='button'
             danger={danger}
             onClick={onConfirm}
+            isLoading={isLoading}
           >
             {confirmLabel}
           </Button>

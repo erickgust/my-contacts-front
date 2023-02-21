@@ -24,6 +24,7 @@ export function Home () {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false)
+  const [isDeleteModalLoading, setIsDeleteModalLoading] = useState(false)
   const [
     contactBeingDeleted,
     setContactBeingDeleted,
@@ -70,11 +71,15 @@ export function Home () {
         return
       }
 
+      setIsDeleteModalLoading(true)
+
       await contactsService.deleteContact(contactBeingDeleted.id)
 
       setContacts(contacts =>
         contacts.filter(contact => contact.id !== contactBeingDeleted?.id),
       )
+
+      handleCloseDeleteModal()
 
       toast({
         message: 'Contato deletado com sucesso!',
@@ -86,8 +91,7 @@ export function Home () {
         type: 'error',
       })
     } finally {
-      setIsDeleteModalVisible(false)
-      setContactBeingDeleted(null)
+      setIsDeleteModalLoading(false)
     }
   }
 
@@ -106,6 +110,7 @@ export function Home () {
       <Loader isLoading={isLoading} />
       <Modal
         danger
+        isLoading={isDeleteModalLoading}
         isVisible={isDeleteModalVisible}
         title={
           `Tem certeza que deseja remover o contato ”${contactBeingDeleted?.name}”?`

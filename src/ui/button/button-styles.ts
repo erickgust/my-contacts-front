@@ -26,7 +26,7 @@ export const Button = styled.button<ButtonProps>`${({ theme, danger }) => css`
   }
 
   &:disabled {
-    background-color: #CCC;
+    background-color: #CCC !important;
     cursor: not-allowed;
   }
 
