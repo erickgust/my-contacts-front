@@ -1,6 +1,6 @@
-import { createPortal } from 'react-dom'
 import { Overlay } from './loader-styles'
 import { Spinner } from '../spinner'
+import { Portal } from '../portal'
 
 type LoaderProps = {
   isLoading: boolean
@@ -11,15 +11,11 @@ export function Loader ({ isLoading }: LoaderProps) {
     return null
   }
 
-  const loaderContainer = document.querySelector('[data-js="loader-root"]')
-
-  if (loaderContainer === null) {
-    return null
-  }
-
-  return createPortal((
-    <Overlay>
-      <Spinner size={90} />
-    </Overlay>
-  ), loaderContainer)
+  return (
+    <Portal containerName='loader'>
+      <Overlay>
+        <Spinner size={90} />
+      </Overlay>
+    </Portal>
+  )
 }

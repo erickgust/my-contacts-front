@@ -1,6 +1,6 @@
 import { Button } from '@/ui/button'
 import { ReactNode } from 'react'
-import { createPortal } from 'react-dom'
+import { Portal } from '../portal'
 import * as S from './modal-styles'
 
 type ModalProps = {
@@ -28,17 +28,13 @@ export function Modal (props: ModalProps) {
     confirmLabel = 'Confirmar',
   } = props
 
-  const modalContainer = document.querySelector('[data-js="modal-root"]')
-
-  if (modalContainer === null) {
-    return null
-  }
-
   if (!isVisible) {
     return null
   }
 
-  return createPortal((
+  return (
+
+  <Portal containerName='modal'>
     <S.Overlay>
       <S.Modal danger={danger}>
         <h1>{title}</h1>
@@ -67,5 +63,6 @@ export function Modal (props: ModalProps) {
         </S.Footer>
       </S.Modal>
     </S.Overlay>
-  ), modalContainer)
+  </Portal>
+  )
 }
