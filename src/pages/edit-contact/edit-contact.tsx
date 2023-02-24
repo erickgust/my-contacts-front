@@ -8,6 +8,7 @@ import { Loader } from '@/components/loader'
 import contactsService from '@/services/contacts-service'
 import { toast } from '@/utils/toast'
 import { FormData } from '../new-contact'
+import { useSafeAsyncAction } from '@/resources/use-safe-async-action'
 
 type Params = {
   id: string
@@ -17,6 +18,7 @@ export function EditContact () {
   const [isLoading, setIsLoading] = useState(true)
   const [contactName, setContactName] = useState('')
   const contactFormRef = useRef<ContactFormRef>(null)
+  const safeAsyncAction = useSafeAsyncAction()
   const { id } = useParams<Params>()
   const history = useHistory()
 
@@ -25,21 +27,25 @@ export function EditContact () {
       try {
         const contact = await contactsService.getContactById(id)
 
-        contactFormRef.current?.setFieldsValue(contact)
-        setIsLoading(false)
-        setContactName(contact.name)
+        safeAsyncAction(() => {
+          contactFormRef.current?.setFieldsValue(contact)
+          setIsLoading(false)
+          setContactName(contact.name)
+        })
       } catch {
-        history.push('/')
+        safeAsyncAction(() => {
+          history.push('/')
 
-        toast({
-          type: 'error',
-          message: 'Contato não encontrado!',
+          toast({
+            type: 'error',
+            message: 'Contato não encontrado!',
+          })
         })
       }
     }
 
     loadContact()
-  }, [id, history])
+  }, [id, history, safeAsyncAction])
 
   async function handleSubmit (data: FormData) {
     try {
