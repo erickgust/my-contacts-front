@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 
-import { FormData } from '@/pages/new-contact'
 import { Contact } from '@/services/contacts-service'
+import { ContactFormData } from '@/services/mappers/ContactMapper'
 
 import categoriesService, { Category } from '@/services/categories-service'
 
@@ -17,7 +17,7 @@ import * as S from './contact-form-styles'
 
 type ContactFormProps = {
   buttonLabel: string
-  onSubmit: (data: FormData) => Promise<void>
+  onSubmit: (data: ContactFormData) => Promise<void>
 }
 
 export type ContactFormRef = {

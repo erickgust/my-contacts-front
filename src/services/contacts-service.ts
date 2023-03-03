@@ -1,3 +1,4 @@
+import { ContactFormData, contactMapper } from './mappers/ContactMapper'
 import { HttpClient } from './utils/http'
 
 export type Contact = {
@@ -9,7 +10,6 @@ export type Contact = {
   phone: string
 }
 
-type ContactData = Omit<Contact, 'category_name' | 'id'>
 type ContactResponse = Promise<Contact[]>
 
 export type OrderBy = 'asc' | 'desc'
@@ -29,12 +29,14 @@ class ContactsService {
     return this.httpClient.get(`/contacts/${id}`)
   }
 
-  createContact (contact: ContactData) {
-    return this.httpClient.post('/contacts', { body: contact })
+  createContact (contact: ContactFormData) {
+    const body = contactMapper.toPersistence(contact)
+    return this.httpClient.post('/contacts', { body })
   }
 
-  updateContact (id: string, contact: ContactData) {
-    return this.httpClient.put(`/contacts/${id}`, { body: contact })
+  updateContact (id: string, contact: ContactFormData) {
+    const body = contactMapper.toPersistence(contact)
+    return this.httpClient.put(`/contacts/${id}`, { body })
   }
 
   deleteContact (id: string) {

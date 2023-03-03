@@ -6,8 +6,9 @@ import { PageHeader } from '@/components/page-header'
 import { Loader } from '@/components/loader'
 
 import contactsService from '@/services/contacts-service'
+import { ContactFormData } from '@/services/mappers/ContactMapper'
+
 import { toast } from '@/utils/toast'
-import { FormData } from '../new-contact'
 import { useSafeAsyncAction } from '@/resources/use-safe-async-action'
 
 type Params = {
@@ -47,15 +48,8 @@ export function EditContact () {
     loadContact()
   }, [id, history, safeAsyncAction])
 
-  async function handleSubmit (data: FormData) {
+  async function handleSubmit (contact: ContactFormData) {
     try {
-      const contact = {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        category_id: data.categoryId,
-      }
-
       const updatedContact = await contactsService.updateContact(id, contact)
 
       setContactName(updatedContact.name)
