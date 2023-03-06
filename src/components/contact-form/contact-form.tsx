@@ -1,7 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 
-import { Contact } from '@/services/contacts-service'
-import { ContactFormData } from '@/services/mappers/ContactMapper'
+import { Contact, ContactFormData } from '@/services/mappers/ContactMapper'
 
 import categoriesService, { Category } from '@/services/categories-service'
 
@@ -45,7 +44,7 @@ const ContactForm = forwardRef<ContactFormRef, ContactFormProps>((
       setName(contact.name ?? '')
       setEmail(contact.email ?? '')
       setPhone(formatPhone(contact.phone ?? ''))
-      setCategoryId(contact.category_id ?? '')
+      setCategoryId(contact.category.id ?? '')
     },
     resetFields: () => {
       setName('')

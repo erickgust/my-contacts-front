@@ -12,10 +12,11 @@ import magnifierQuestion from '@/ui/icons/magnifier-question.svg'
 
 import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
-import contactsService, { Contact, OrderBy } from '@/services/contacts-service'
+import contactsService, { OrderBy } from '@/services/contacts-service'
 import { Button } from '@/ui/button'
 import { Modal } from '@/components/modal'
 import { toast } from '@/utils/toast'
+import { Contact } from '@/services/mappers/ContactMapper'
 
 export function Home () {
   const [contacts, setContacts] = useState<Contact[]>([])
@@ -195,8 +196,8 @@ export function Home () {
               <S.ContactInfo>
                 <div className='name'>
                   <strong>{contact.name}</strong>
-                  {contact.category_name && (
-                    <small>{contact.category_name}</small>
+                  {contact.category.name && (
+                    <small>{contact.category.name}</small>
                   )}
                 </div>
 
