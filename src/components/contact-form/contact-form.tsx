@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 
-import { Contact, ContactFormData } from '@/services/mappers/ContactMapper'
+import { Contact, ContactFormData } from '@/services/mappers/contact-mapper'
 
 import categoriesService, { Category } from '@/services/categories-service'
 

@@ -1,4 +1,4 @@
-import { ContactFormData, contactMapper, ContactResponse } from './mappers/ContactMapper'
+import { ContactFormData, contactMapper, ContactResponse } from './mappers/contact-mapper'
 import { HttpClient } from './utils/http'
 
 export type OrderBy = 'asc' | 'desc'

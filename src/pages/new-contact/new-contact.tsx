@@ -1,7 +1,7 @@
 import { PageHeader } from '@/components/page-header'
 import { ContactForm, ContactFormRef } from '@/components/contact-form'
 import contactsService from '@/services/contacts-service'
-import { ContactFormData } from '@/services/mappers/ContactMapper'
+import { ContactFormData } from '@/services/mappers/contact-mapper'
 import { toast } from '@/utils/toast'
 import { useRef } from 'react'
 

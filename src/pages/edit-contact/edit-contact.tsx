@@ -6,7 +6,7 @@ import { PageHeader } from '@/components/page-header'
 import { Loader } from '@/components/loader'
 
 import contactsService from '@/services/contacts-service'
-import { ContactFormData } from '@/services/mappers/ContactMapper'
+import { ContactFormData } from '@/services/mappers/contact-mapper'
 
 import { toast } from '@/utils/toast'
 import { useSafeAsyncAction } from '@/resources/use-safe-async-action'

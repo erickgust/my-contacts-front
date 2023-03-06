@@ -16,7 +16,7 @@ import contactsService, { OrderBy } from '@/services/contacts-service'
 import { Button } from '@/ui/button'
 import { Modal } from '@/components/modal'
 import { toast } from '@/utils/toast'
-import { Contact } from '@/services/mappers/ContactMapper'
+import { Contact } from '@/services/mappers/contact-mapper'
 
 export function Home () {
   const [contacts, setContacts] = useState<Contact[]>([])
