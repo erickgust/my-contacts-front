@@ -1,8 +1,9 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 
 import { Contact, ContactFormData } from '@/services/mappers/contact-mapper'
+import { Category } from '@/services/mappers/category-mapper'
 
-import categoriesService, { Category } from '@/services/categories-service'
+import categoriesService from '@/services/categories-service'
 
 import { formatPhone } from '@/utils/formatPhone'
 import { isEmailValid } from '@/utils/isEmailValid'

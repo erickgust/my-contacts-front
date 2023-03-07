@@ -1,11 +1,5 @@
+import { Category, categoryMapper } from './mappers/category-mapper'
 import { HttpClient } from './utils/http'
-
-export type Category = {
-  id: string
-  name: string
-}
-
-type CategoryResponse = Promise<Category[]>
 
 class CategoriesService {
   httpClient: HttpClient
@@ -14,8 +8,10 @@ class CategoriesService {
     this.httpClient = new HttpClient('http://localhost:3333')
   }
 
-  listCategories (): CategoryResponse {
-    return this.httpClient.get('/categories')
+  async listCategories () {
+    const categories: Category[] = await this.httpClient.get('/categories')
+
+    return categories.map(categoryMapper.toDomain)
   }
 }
 
