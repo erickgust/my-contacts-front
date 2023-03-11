@@ -37,19 +37,6 @@ export function Home () {
   return (
     <div>
       <Loader isLoading={isLoading} />
-      <Modal
-        danger
-        isLoading={isDeleteModalLoading}
-        isVisible={isDeleteModalVisible}
-        title={
-          `Tem certeza que deseja remover o contato ”${contactBeingDeleted?.name}”?`
-        }
-        confirmLabel='Deletar'
-        onCancel={handleCloseDeleteModal}
-        onConfirm={handleConfirmDeleteContact}
-      >
-        <p>Esta ação não poderá ser desfeita!</p>
-      </Modal>
 
       {contacts.length > 0 && (
         <S.Label>
@@ -150,6 +137,20 @@ export function Home () {
           ))}
         </S.ListContainer>
       )}
+
+      <Modal
+        danger
+        isLoading={isDeleteModalLoading}
+        isVisible={isDeleteModalVisible}
+        title={
+          `Tem certeza que deseja remover o contato ”${contactBeingDeleted?.name}”?`
+        }
+        confirmLabel='Deletar'
+        onCancel={handleCloseDeleteModal}
+        onConfirm={handleConfirmDeleteContact}
+      >
+        <p>Esta ação não poderá ser desfeita!</p>
+      </Modal>
     </div>
   )
 }
