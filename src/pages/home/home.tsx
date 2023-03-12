@@ -14,6 +14,7 @@ import { Loader } from '@/components/loader'
 import { Button } from '@/ui/button'
 import { Modal } from '@/components/modal'
 import { useHome } from './use-home'
+import { InputSearch } from './components/input-search'
 
 export function Home () {
   const {
@@ -39,13 +40,10 @@ export function Home () {
       <Loader isLoading={isLoading} />
 
       {contacts.length > 0 && (
-        <S.Label>
-          <S.Input
-            placeholder='Pesquisar contato...'
-            value={search}
-            onChange={handleSearchChange}
-          />
-        </S.Label>
+        <InputSearch
+          value={search}
+          onChange={handleSearchChange}
+        />
       )}
 
       <S.Header justifyCenter={(!hasError && contacts.length === 0)}>
