@@ -15,6 +15,7 @@ import { Button } from '@/ui/button'
 import { Modal } from '@/components/modal'
 import { useHome } from './use-home'
 import { InputSearch } from './components/input-search'
+import { Header } from './components/header'
 
 export function Home () {
   const {
@@ -46,16 +47,11 @@ export function Home () {
         />
       )}
 
-      <S.Header justifyCenter={(!hasError && contacts.length === 0)}>
-        {(!hasError && contacts.length > 0) && (
-          <S.Strong>
-            {contacts.length}
-            {' '}
-            {contacts.length === 1 ? 'contato' : 'contatos'}
-          </S.Strong>
-        )}
-        <Link to='/new'>Novo contato</Link>
-      </S.Header>
+      <Header
+        hasError={hasError}
+        contactsLength={contacts.length}
+        filteredContactsLength={filteredContacts.length}
+      />
 
       <S.Divider />
 
