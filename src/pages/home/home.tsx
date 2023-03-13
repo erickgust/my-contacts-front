@@ -5,7 +5,6 @@ import * as S from './home-styles'
 import arrow from '@/ui/icons/arrow.svg'
 import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
-import empty from '@/ui/icons/empty-box.svg'
 import magnifierQuestion from '@/ui/icons/magnifier-question.svg'
 
 import { formatPhone } from '@/utils/formatPhone'
@@ -15,6 +14,7 @@ import { useHome } from './use-home'
 import { InputSearch } from './components/input-search'
 import { Header } from './components/header'
 import { ErrorStatus } from './components/error-status'
+import { EmptyList } from './components/empty-list'
 
 export function Home () {
   const {
@@ -61,15 +61,7 @@ export function Home () {
       {!hasError && (
         <S.ListContainer>
           {(contacts.length === 0 && !isLoading) && (
-            <S.EmptyContainer>
-              <img src={empty} alt='Caixa vazia' />
-
-              <p>
-                Você ainda não tem nenhum contato cadastrado! <br />
-                Clique no botão <strong>”Novo contato”</strong> à
-                cima para cadastrar o seu primeiro!
-              </p>
-            </S.EmptyContainer>
+            <EmptyList />
           )}
 
           {filteredContacts.length === 0 && contacts.length > 0 && (
