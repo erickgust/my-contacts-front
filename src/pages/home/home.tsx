@@ -5,17 +5,16 @@ import * as S from './home-styles'
 import arrow from '@/ui/icons/arrow.svg'
 import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
-import sad from '@/ui/icons/sad.svg'
 import empty from '@/ui/icons/empty-box.svg'
 import magnifierQuestion from '@/ui/icons/magnifier-question.svg'
 
 import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
-import { Button } from '@/ui/button'
 import { Modal } from '@/components/modal'
 import { useHome } from './use-home'
 import { InputSearch } from './components/input-search'
 import { Header } from './components/header'
+import { ErrorStatus } from './components/error-status'
 
 export function Home () {
   const {
@@ -56,15 +55,7 @@ export function Home () {
       <S.Divider />
 
       {hasError && (
-        <S.ErrorContainer>
-          <img src={sad} alt='Rosto triste' />
-
-          <div>
-            <strong>Ocorreu um erro ao obter os seus contatos!</strong>
-
-            <Button onClick={handleTryAgain}>Tentar novamente</Button>
-          </div>
-        </S.ErrorContainer>
+        <ErrorStatus onTryAgain={handleTryAgain} />
       )}
 
       {!hasError && (

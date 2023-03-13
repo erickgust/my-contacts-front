@@ -7,22 +7,6 @@ export const Divider = styled.hr`
   margin: 1.6rem 0;
 `
 
-export const ErrorContainer = styled.div`
-  display: flex;
-  align-items: center;
-
-  div {
-    margin-left: 2.4rem;
-
-    strong {
-      font-size: 2.2rem;
-      display: block;
-      margin-bottom: 0.8rem;
-      color: ${({ theme }) => theme.colors.danger.main};
-    }
-  }
-`
-
 export const ListContainer = styled.div`
   margin-top: 2.4rem;
 
