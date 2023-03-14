@@ -5,7 +5,6 @@ import * as S from './home-styles'
 import arrow from '@/ui/icons/arrow.svg'
 import edit from '@/ui/icons/edit.svg'
 import trash from '@/ui/icons/trash.svg'
-import magnifierQuestion from '@/ui/icons/magnifier-question.svg'
 
 import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
@@ -15,6 +14,7 @@ import { InputSearch } from './components/input-search'
 import { Header } from './components/header'
 import { ErrorStatus } from './components/error-status'
 import { EmptyList } from './components/empty-list'
+import { SearchNotFound } from './components/not-found'
 
 export function Home () {
   const {
@@ -65,13 +65,7 @@ export function Home () {
           )}
 
           {filteredContacts.length === 0 && contacts.length > 0 && (
-            <S.SearchNotFoundContainer>
-              <img src={magnifierQuestion} alt='Lupa questionando' />
-
-              <p>
-                Nenhum resultado foi encontrado para <strong>”{search}”</strong>.
-              </p>
-            </S.SearchNotFoundContainer>
+            <SearchNotFound search={search} />
           )}
 
           {filteredContacts.length > 0 && (
