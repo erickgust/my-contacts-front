@@ -1,20 +1,16 @@
-import { Link } from 'react-router-dom'
-
 import * as S from './home-styles'
 
-import arrow from '@/ui/icons/arrow.svg'
-import edit from '@/ui/icons/edit.svg'
-import trash from '@/ui/icons/trash.svg'
-
-import { formatPhone } from '@/utils/formatPhone'
 import { Loader } from '@/components/loader'
 import { Modal } from '@/components/modal'
+
 import { useHome } from './use-home'
-import { InputSearch } from './components/input-search'
+
 import { Header } from './components/header'
-import { ErrorStatus } from './components/error-status'
 import { EmptyList } from './components/empty-list'
+import { InputSearch } from './components/input-search'
+import { ErrorStatus } from './components/error-status'
 import { SearchNotFound } from './components/not-found'
+import { ContactsList } from './components/contacts-list'
 
 export function Home () {
   const {
@@ -68,44 +64,12 @@ export function Home () {
             <SearchNotFound search={search} />
           )}
 
-          {filteredContacts.length > 0 && (
-            <header>
-              <S.SortButton type='button' onClick={handleToggleOrderBy} orderBy={orderBy}>
-                <span>Nome</span>
-                <img src={arrow} alt='Arrow' />
-              </S.SortButton>
-            </header>
-          )}
-
-          {filteredContacts.map(contact => (
-            <S.ContactCard key={contact.id}>
-              <S.ContactInfo>
-                <div className='name'>
-                  <strong>{contact.name}</strong>
-                  {contact.category.name && (
-                    <small>{contact.category.name}</small>
-                  )}
-                </div>
-
-                <address>
-                  <span>{contact.email}</span>
-                  <span>{formatPhone(contact.phone)}</span>
-                </address>
-              </S.ContactInfo>
-
-              <S.ContactActions>
-                <Link to={`/edit/${contact.id}`}>
-                  <img src={edit} alt='Editar' />
-                </Link>
-                <button
-                  type='button'
-                  onClick={() => handleDeleteContact(contact)}
-                >
-                  <img src={trash} alt='Deletar' />
-                </button>
-              </S.ContactActions>
-            </S.ContactCard>
-          ))}
+          <ContactsList
+            filteredContacts={filteredContacts}
+            orderBy={orderBy}
+            onToggleOrderBy={handleToggleOrderBy}
+            onDeleteContact={handleDeleteContact}
+          />
         </S.ListContainer>
       )}
 
