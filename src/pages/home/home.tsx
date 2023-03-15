@@ -31,11 +31,15 @@ export function Home () {
     handleTryAgain,
   } = useHome()
 
+  const hasContacts = contacts.length > 0
+  const isListEmpty = !hasContacts && !isLoading
+  const isSearchEmpty = filteredContacts.length === 0 && hasContacts
+
   return (
     <div>
       <Loader isLoading={isLoading} />
 
-      {contacts.length > 0 && (
+      {hasContacts && (
         <InputSearch
           value={search}
           onChange={handleSearchChange}
@@ -56,11 +60,11 @@ export function Home () {
 
       {!hasError && (
         <S.ListContainer>
-          {(contacts.length === 0 && !isLoading) && (
+          {isListEmpty && (
             <EmptyList />
           )}
 
-          {filteredContacts.length === 0 && contacts.length > 0 && (
+          {isSearchEmpty && (
             <SearchNotFound search={search} />
           )}
 
