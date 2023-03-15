@@ -22,7 +22,7 @@ export function ContactsList ({
   onDeleteContact,
 }: ContactsListProps) {
   return (
-    <>
+    <S.ListContainer>
       {filteredContacts.length > 0 && (
         <header>
           <S.SortButton type='button' onClick={onToggleOrderBy} orderBy={orderBy}>
@@ -61,6 +61,6 @@ export function ContactsList ({
           </S.ContactActions>
         </S.ContactCard>
       ))}
-    </>
+    </S.ListContainer>
   )
 }

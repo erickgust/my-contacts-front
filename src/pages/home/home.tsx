@@ -32,8 +32,8 @@ export function Home () {
   } = useHome()
 
   const hasContacts = contacts.length > 0
-  const isListEmpty = !hasContacts && !isLoading
-  const isSearchEmpty = filteredContacts.length === 0 && hasContacts
+  const isListEmpty = !hasError && (!hasContacts && !isLoading)
+  const isSearchEmpty = !hasError && (filteredContacts.length === 0 && hasContacts)
 
   return (
     <div>
@@ -54,27 +54,17 @@ export function Home () {
 
       <S.Divider />
 
-      {hasError && (
-        <ErrorStatus onTryAgain={handleTryAgain} />
-      )}
+      {hasError && <ErrorStatus onTryAgain={handleTryAgain} />}
+      {isListEmpty && <EmptyList />}
+      {isSearchEmpty && <SearchNotFound search={search} />}
 
       {!hasError && (
-        <S.ListContainer>
-          {isListEmpty && (
-            <EmptyList />
-          )}
-
-          {isSearchEmpty && (
-            <SearchNotFound search={search} />
-          )}
-
-          <ContactsList
-            filteredContacts={filteredContacts}
-            orderBy={orderBy}
-            onToggleOrderBy={handleToggleOrderBy}
-            onDeleteContact={handleDeleteContact}
-          />
-        </S.ListContainer>
+        <ContactsList
+          filteredContacts={filteredContacts}
+          orderBy={orderBy}
+          onToggleOrderBy={handleToggleOrderBy}
+          onDeleteContact={handleDeleteContact}
+        />
       )}
 
       <Modal

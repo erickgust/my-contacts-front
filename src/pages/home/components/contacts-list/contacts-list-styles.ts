@@ -4,6 +4,12 @@ type SortButtonProps = {
   orderBy: 'asc' | 'desc'
 }
 
+export const ListContainer = styled.div`
+  header {
+    margin-bottom: 0.8rem;
+  }
+`
+
 export const SortButton = styled.button<SortButtonProps>`
   display: flex;
   align-items: center;
