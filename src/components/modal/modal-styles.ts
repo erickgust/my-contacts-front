@@ -1,4 +1,24 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`
+
+const scaleIn = keyframes`
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+`
 
 export const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
@@ -11,6 +31,8 @@ export const Overlay = styled.div`
 
   display: grid;
   place-items: center;
+
+  animation: ${fadeIn} 300ms;
 `
 
 type ModalProps = {
@@ -27,6 +49,8 @@ export const Modal = styled.div<ModalProps>`
 
   width: 100%;
   max-width: 45rem;
+
+  animation: ${scaleIn} 300ms;
 
   > h1 {
     font-size: 2.2rem;
