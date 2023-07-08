@@ -1,5 +1,5 @@
 import { Button } from '@/ui/button'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { Portal } from '../portal'
 import * as S from './modal-styles'
 
@@ -27,16 +27,29 @@ export function Modal (props: ModalProps) {
     cancelLabel = 'Cancelar',
     confirmLabel = 'Confirmar',
   } = props
+  const [shouldRender, setShouldRender] = useState(isVisible)
 
-  if (!isVisible) {
+  useEffect(() => {
+    let timeoutId = 0
+
+    if (isVisible) {
+      setShouldRender(true)
+    } else {
+      timeoutId = setTimeout(() => setShouldRender(false), 300)
+    }
+
+    return () => clearTimeout(timeoutId)
+  }, [isVisible])
+
+  if (!shouldRender) {
     return null
   }
 
   return (
 
   <Portal containerName='modal'>
-    <S.Overlay>
-      <S.Modal danger={danger}>
+    <S.Overlay isLeaving={!isVisible}>
+      <S.Modal danger={danger} isLeaving={!isVisible}>
         <h1>{title}</h1>
         <div className='modal-body'>
           {children}
