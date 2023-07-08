@@ -1,26 +1,30 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
+  from {opacity: 0;}
+  to {opacity: 1;}
+`
 
-  to {
-    opacity: 1;
-  }
+const fadeOut = keyframes`
+  from {opacity: 1;}
+  to {opacity: 0;}
 `
 
 const scaleIn = keyframes`
-  from {
-    transform: scale(0);
-  }
-
-  to {
-    transform: scale(1);
-  }
+  from {transform: scale(0);}
+  to {transform: scale(1);}
 `
 
-export const Overlay = styled.div`
+const scaleOut = keyframes`
+  from {transform: scale(1);}
+  to {transform: scale(0);}
+`
+
+type OverlayProps = {
+  isLeaving?: boolean
+}
+
+export const Overlay = styled.div<OverlayProps>`
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3.5px);
   position: fixed;
@@ -33,10 +37,13 @@ export const Overlay = styled.div`
   place-items: center;
 
   animation: ${fadeIn} 300ms;
+
+  ${({ isLeaving }) => isLeaving && css`animation: ${fadeOut} 300ms forwards;`}
 `
 
 type ModalProps = {
   danger?: boolean
+  isLeaving?: boolean
 }
 
 export const Modal = styled.div<ModalProps>`
@@ -51,6 +58,7 @@ export const Modal = styled.div<ModalProps>`
   max-width: 45rem;
 
   animation: ${scaleIn} 300ms;
+  ${({ isLeaving }) => isLeaving && css`animation: ${scaleOut} 300ms forwards;`}
 
   > h1 {
     font-size: 2.2rem;
