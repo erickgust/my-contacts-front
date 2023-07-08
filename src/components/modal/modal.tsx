@@ -1,5 +1,5 @@
 import { Button } from '@/ui/button'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { Portal } from '../portal'
 import * as S from './modal-styles'
 
@@ -28,17 +28,24 @@ export function Modal (props: ModalProps) {
     confirmLabel = 'Confirmar',
   } = props
   const [shouldRender, setShouldRender] = useState(isVisible)
+  const overlayRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let timeoutId = 0
+    function handleAnimationEnd () {
+      setShouldRender(false)
+    }
+
+    const overlayElement = overlayRef.current
 
     if (isVisible) {
       setShouldRender(true)
     } else {
-      timeoutId = setTimeout(() => setShouldRender(false), 300)
+      overlayElement?.addEventListener('animationend', handleAnimationEnd)
     }
 
-    return () => clearTimeout(timeoutId)
+    return () => {
+      overlayElement?.removeEventListener('animationend', handleAnimationEnd)
+    }
   }, [isVisible])
 
   if (!shouldRender) {
@@ -48,7 +55,7 @@ export function Modal (props: ModalProps) {
   return (
 
   <Portal containerName='modal'>
-    <S.Overlay isLeaving={!isVisible}>
+    <S.Overlay isLeaving={!isVisible} ref={overlayRef}>
       <S.Modal danger={danger} isLeaving={!isVisible}>
         <h1>{title}</h1>
         <div className='modal-body'>
