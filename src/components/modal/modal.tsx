@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { Button } from '@/ui/button'
 import { Portal } from '../portal'
 import * as S from './modal-styles'
-import { useAnimationEnd } from '@/resources/useAnimationEnd'
+import { useAnimatedUnmount } from '@/resources/use-animated-unmount'
 
 type ModalProps = {
   title: string
@@ -28,7 +28,7 @@ export function Modal (props: ModalProps) {
     cancelLabel = 'Cancelar',
     confirmLabel = 'Confirmar',
   } = props
-  const { elementRef, shouldRender } = useAnimationEnd(isVisible)
+  const { elementRef, shouldRender } = useAnimatedUnmount(isVisible)
 
   if (!shouldRender) {
     return null

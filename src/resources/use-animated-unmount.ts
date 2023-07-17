@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function useAnimationEnd (isVisible: boolean) {
+export function useAnimatedUnmount (isVisible: boolean) {
   const [shouldRender, setShouldRender] = useState(isVisible)
   const elementRef = useRef<HTMLDivElement>(null)
 

@@ -1,14 +1,14 @@
 import { Overlay } from './loader-styles'
 import { Spinner } from '../spinner'
 import { Portal } from '../portal'
-import { useAnimationEnd } from '@/resources/useAnimationEnd'
+import { useAnimatedUnmount } from '@/resources/use-animated-unmount'
 
 type LoaderProps = {
   isLoading: boolean
 }
 
 export function Loader ({ isLoading }: LoaderProps) {
-  const { elementRef, shouldRender } = useAnimationEnd(isLoading)
+  const { elementRef, shouldRender } = useAnimatedUnmount(isLoading)
 
   if (!shouldRender) {
     return null
