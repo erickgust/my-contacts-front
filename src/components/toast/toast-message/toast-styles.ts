@@ -13,6 +13,18 @@ const messageIn = keyframes`
   }
 `
 
+const messageOut = keyframes`
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+`
+
 const colorVariants = {
   success: css`
     background-color: ${({ theme }) => theme.colors.success.main};
@@ -27,6 +39,7 @@ const colorVariants = {
 
 type ContainerProps = {
   type?: ToastType
+  isClosing?: boolean
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -34,7 +47,6 @@ export const Container = styled.div<ContainerProps>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  animation: ${messageIn} 300ms ease-in-out;
 
   padding: 1.6rem 3.2rem;
   border-radius: 0.4rem;
@@ -45,6 +57,8 @@ export const Container = styled.div<ContainerProps>`
   box-shadow: 0px 20px 20px -16px rgba(0, 0, 0, 0.25);
   color: #FFF;
 
+  animation: ${messageIn} 300ms ease-in-out;
+  ${({ isClosing }) => isClosing && css`animation: ${messageOut} 300ms ease-in-out forwards;`}
 
   img {
     margin-right: 0.8rem;

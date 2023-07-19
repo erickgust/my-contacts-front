@@ -3,7 +3,12 @@ import * as S from './container-styles'
 import { useToastContainer } from './use-toast-container'
 
 export function ToastContainer () {
-  const { toasts, handleRemoveToast } = useToastContainer()
+  const {
+    toasts,
+    pendingCloseIds,
+    handleRemoveToast,
+    handleAnimationEnd,
+  } = useToastContainer()
 
   return (
     <S.Container>
@@ -12,6 +17,8 @@ export function ToastContainer () {
           key={toast.id}
           toast={toast}
           onRemoveToast={handleRemoveToast}
+          onAnimationEnd={handleAnimationEnd}
+          isClosing={pendingCloseIds.includes(toast.id)}
         />
       ))}
     </S.Container>
