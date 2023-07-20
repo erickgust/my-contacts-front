@@ -1,5 +1,8 @@
 import { useCallback, useState } from 'react'
 
+type RenderItem<T> = (item: T, { isClosing } : { isClosing: boolean })
+  => JSX.Element
+
 export function useAnimatedList<T extends { id: number }> (initialItems: T[] = []) {
   const [items, setItems] = useState<T[]>(initialItems)
   const [pendingCloseIds, setPendingCloseIds] = useState<number[]>([])
@@ -13,11 +16,17 @@ export function useAnimatedList<T extends { id: number }> (initialItems: T[] = [
     setPendingCloseIds((prevIds) => prevIds.filter(prevId => prevId !== id))
   }, [])
 
+  const renderList = useCallback((renderItem: RenderItem<T>) => {
+    return items.map((item) => renderItem(item, {
+      isClosing: pendingCloseIds.includes(item.id),
+    }))
+  }, [items, pendingCloseIds])
+
   return {
     items,
-    pendingCloseIds,
     handleRemoveItem,
     handleAnimationEnd,
+    renderList,
     setItems,
   }
 }

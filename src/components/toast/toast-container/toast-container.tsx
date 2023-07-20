@@ -4,23 +4,22 @@ import { useToastContainer } from './use-toast-container'
 
 export function ToastContainer () {
   const {
-    toasts,
-    pendingCloseIds,
     handleRemoveItem,
     handleAnimationEnd,
+    renderList,
   } = useToastContainer()
 
   return (
     <S.Container>
-      {toasts.map((toast) => (
+      {renderList((toast, { isClosing }) =>
         <ToastMessage
           key={toast.id}
           toast={toast}
           onRemoveToast={handleRemoveItem}
           onAnimationEnd={handleAnimationEnd}
-          isClosing={pendingCloseIds.includes(toast.id)}
-        />
-      ))}
+          isClosing={isClosing}
+        />,
+      )}
     </S.Container>
   )
 }
