@@ -6,7 +6,7 @@ export function ToastContainer () {
   const {
     toasts,
     pendingCloseIds,
-    handleRemoveToast,
+    handleRemoveItem,
     handleAnimationEnd,
   } = useToastContainer()
 
@@ -16,7 +16,7 @@ export function ToastContainer () {
         <ToastMessage
           key={toast.id}
           toast={toast}
-          onRemoveToast={handleRemoveToast}
+          onRemoveToast={handleRemoveItem}
           onAnimationEnd={handleAnimationEnd}
           isClosing={pendingCloseIds.includes(toast.id)}
         />

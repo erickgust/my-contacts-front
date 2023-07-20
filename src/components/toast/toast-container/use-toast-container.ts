@@ -1,10 +1,16 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Toast, ToastData } from '../toast-types'
 import { toastEventManager } from '@/utils/toast'
+import { useAnimatedList } from '@/resources/use-animated-list'
 
 export function useToastContainer () {
-  const [toasts, setToasts] = useState<Toast[]>([])
-  const [pendingCloseIds, setPendingCloseIds] = useState<number[]>([])
+  const {
+    items: toasts,
+    pendingCloseIds,
+    handleAnimationEnd,
+    handleRemoveItem,
+    setItems: setToasts,
+  } = useAnimatedList<Toast>([{ message: 'test', type: 'success', id: 1 }])
 
   useEffect(() => {
     const handleAddToast = ({ message, type, duration }: ToastData) => {
@@ -15,19 +21,11 @@ export function useToastContainer () {
     }
 
     toastEventManager.on('addtoast', handleAddToast)
+
     return () => {
       toastEventManager.off('addtoast', handleAddToast)
     }
-  }, [])
+  }, [setToasts])
 
-  const handleRemoveToast = useCallback((id: number) => {
-    setPendingCloseIds((prevIds) => [...prevIds, id])
-  }, [])
-
-  const handleAnimationEnd = useCallback((id: number) => {
-    setToasts((prevToasts) => prevToasts.filter(toast => toast.id !== id))
-    setPendingCloseIds((prevIds) => prevIds.filter(prevId => prevId !== id))
-  }, [])
-
-  return { toasts, pendingCloseIds, handleRemoveToast, handleAnimationEnd }
+  return { toasts, pendingCloseIds, handleRemoveItem, handleAnimationEnd }
 }
