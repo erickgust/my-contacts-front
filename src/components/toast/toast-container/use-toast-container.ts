@@ -5,11 +5,10 @@ import { useAnimatedList } from '@/resources/use-animated-list'
 
 export function useToastContainer () {
   const {
-    handleAnimationEnd,
     handleRemoveItem,
     setItems: setToasts,
     renderList,
-  } = useAnimatedList<Toast>([{ message: 'test', type: 'success', id: 1 }])
+  } = useAnimatedList<Toast>()
 
   useEffect(() => {
     const handleAddToast = ({ message, type, duration }: ToastData) => {
@@ -28,7 +27,6 @@ export function useToastContainer () {
 
   return {
     handleRemoveItem,
-    handleAnimationEnd,
     renderList,
   }
 }

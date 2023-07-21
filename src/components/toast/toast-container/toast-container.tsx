@@ -5,19 +5,18 @@ import { useToastContainer } from './use-toast-container'
 export function ToastContainer () {
   const {
     handleRemoveItem,
-    handleAnimationEnd,
     renderList,
   } = useToastContainer()
 
   return (
     <S.Container>
-      {renderList((toast, { isClosing }) =>
+      {renderList((toast, { isClosing, animatedRef }) =>
         <ToastMessage
           key={toast.id}
           toast={toast}
           onRemoveToast={handleRemoveItem}
-          onAnimationEnd={handleAnimationEnd}
           isClosing={isClosing}
+          animatedRef={animatedRef}
         />,
       )}
     </S.Container>
