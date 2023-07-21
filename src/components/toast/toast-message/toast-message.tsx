@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import * as S from './toast-styles'
 import xCircleIcon from '@/ui/icons/x-circle.svg'
 import checkCircleIcon from '@/ui/icons/check-circle.svg'
@@ -11,7 +11,7 @@ type ToastMessageProps = {
   onRemoveToast: (id: number) => void
 }
 
-export function ToastMessage (props: ToastMessageProps) {
+function ToastMessage (props: ToastMessageProps) {
   const { toast, onRemoveToast, isClosing, animatedRef } = props
 
   function handleRemoveToast () {
@@ -44,3 +44,7 @@ export function ToastMessage (props: ToastMessageProps) {
     </S.Container>
   )
 }
+
+const ToastMessageMemo = memo(ToastMessage)
+
+export { ToastMessageMemo as ToastMessage }
