@@ -76,7 +76,7 @@ const ContactForm = forwardRef<ContactFormRef, ContactFormProps>((
       <FormGroup isLoading={isLoadingCategories}>
         <Select
           value={categoryId}
-          onChange={e => setCategoryId(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCategoryId(e.target.value)}
           disabled={isLoadingCategories || isSubmitting}
         >
           <option value=''>Selecione uma categoria</option>
