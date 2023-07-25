@@ -36,8 +36,8 @@ export function Modal (props: ModalProps) {
 
   return (
     <Portal containerName='modal'>
-      <S.Overlay isLeaving={!isVisible} ref={elementRef}>
-        <S.Modal danger={danger} isLeaving={!isVisible}>
+      <S.Overlay $isLeaving={!isVisible} ref={elementRef}>
+        <S.Modal $danger={danger} $isLeaving={!isVisible}>
           <h1>{title}</h1>
           <div className='modal-body'>
             {children}

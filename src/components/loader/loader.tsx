@@ -16,7 +16,7 @@ export function Loader ({ isLoading }: LoaderProps) {
 
   return (
     <Portal containerName='loader'>
-      <Overlay ref={elementRef} isLeaving={!isLoading}>
+      <Overlay ref={elementRef} $isLeaving={!isLoading}>
         <Spinner size={90} />
       </Overlay>
     </Portal>

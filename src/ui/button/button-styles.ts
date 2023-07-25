@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components'
 
 type ButtonProps = {
-  danger?: boolean
+  $danger?: boolean
 }
 
-export const Button = styled.button<ButtonProps>`${({ theme, danger }) => css`
+export const Button = styled.button<ButtonProps>`${({ theme, $danger }) => css`
   border: none;
   font-size: 1.6rem;
   border-radius: 4px;
@@ -30,7 +30,7 @@ export const Button = styled.button<ButtonProps>`${({ theme, danger }) => css`
     cursor: not-allowed;
   }
 
-  ${danger && css`
+  ${$danger && css`
     background-color: ${theme.colors.danger.main};
 
     &:hover {

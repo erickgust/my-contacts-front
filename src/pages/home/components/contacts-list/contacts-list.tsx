@@ -26,7 +26,7 @@ function ContactsList ({
     <S.ListContainer>
       {filteredContacts.length > 0 && (
         <header>
-          <S.SortButton type='button' onClick={onToggleOrderBy} orderBy={orderBy}>
+          <S.SortButton type='button' onClick={onToggleOrderBy} $orderBy={orderBy}>
             <span>Nome</span>
             <img src={arrow} alt='Arrow' />
           </S.SortButton>

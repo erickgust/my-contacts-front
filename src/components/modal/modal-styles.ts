@@ -21,7 +21,7 @@ const scaleOut = keyframes`
 `
 
 type OverlayProps = {
-  isLeaving?: boolean
+  $isLeaving?: boolean
 }
 
 export const Overlay = styled.div<OverlayProps>`
@@ -38,12 +38,12 @@ export const Overlay = styled.div<OverlayProps>`
 
   animation: ${fadeIn} 300ms;
 
-  ${({ isLeaving }) => isLeaving && css`animation: ${fadeOut} 300ms forwards;`}
+  ${({ $isLeaving }) => $isLeaving && css`animation: ${fadeOut} 300ms forwards;`}
 `
 
 type ModalProps = {
-  danger?: boolean
-  isLeaving?: boolean
+  $danger?: boolean
+  $isLeaving?: boolean
 }
 
 export const Modal = styled.div<ModalProps>`
@@ -58,12 +58,12 @@ export const Modal = styled.div<ModalProps>`
   max-width: 45rem;
 
   animation: ${scaleIn} 300ms;
-  ${({ isLeaving }) => isLeaving && css`animation: ${scaleOut} 300ms forwards;`}
+  ${({ $isLeaving }) => $isLeaving && css`animation: ${scaleOut} 300ms forwards;`}
 
   > h1 {
     font-size: 2.2rem;
-    color: ${({ theme, danger }) => (
-      danger
+    color: ${({ theme, $danger }) => (
+      $danger
         ? theme.colors.danger.main
         : theme.colors.gray[900]
     )};

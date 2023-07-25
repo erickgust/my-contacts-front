@@ -17,7 +17,7 @@ export function Button (props: ButtonProps) {
     <S.Button
       type={type}
       disabled={disabled || isLoading}
-      danger={danger}
+      $danger={danger}
       onClick={onClick}
     >
       {!isLoading && children}

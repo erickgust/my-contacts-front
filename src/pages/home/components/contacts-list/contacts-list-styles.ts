@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 type SortButtonProps = {
-  orderBy: 'asc' | 'desc'
+  $orderBy: 'asc' | 'desc'
 }
 
 export const ListContainer = styled.div`
@@ -25,7 +25,7 @@ export const SortButton = styled.button<SortButtonProps>`
     margin-left: 0.8rem;
     transition: transform 200ms ease-in;
 
-    ${({ orderBy }) => orderBy === 'asc' && css`
+    ${({ $orderBy }) => $orderBy === 'asc' && css`
       transform: rotate(180deg);
     `}
   }

@@ -11,7 +11,7 @@ const fadeOut = keyframes`
 `
 
 type OverlayProps = {
-  isLeaving?: boolean
+  $isLeaving?: boolean
 }
 
 export const Overlay = styled.div<OverlayProps>`
@@ -27,5 +27,5 @@ export const Overlay = styled.div<OverlayProps>`
 
   animation: ${fadeIn} 300ms;
 
-  ${({ isLeaving }) => isLeaving && css`animation: ${fadeOut} 300ms forwards;`}
+  ${({ $isLeaving }) => $isLeaving && css`animation: ${fadeOut} 300ms forwards;`}
 `

@@ -16,7 +16,7 @@ export function Header ({
   const contactExists = !hasError && contactsLength > 0
 
   return (
-    <S.Header justifyCenter={isCentered}>
+    <S.Header $justifyCenter={isCentered}>
       {contactExists && (
         <strong>
           {filteredContactsLength}
