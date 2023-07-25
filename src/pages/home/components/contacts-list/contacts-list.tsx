@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import * as S from './contacts-list-styles'
 
@@ -15,7 +16,7 @@ type ContactsListProps = {
   onDeleteContact: (contact: Contact) => void
 }
 
-export function ContactsList ({
+function ContactsList ({
   filteredContacts,
   orderBy,
   onToggleOrderBy,
@@ -64,3 +65,7 @@ export function ContactsList ({
     </S.ListContainer>
   )
 }
+
+const ContactsListMemo = memo(ContactsList)
+
+export { ContactsListMemo as ContactsList }
