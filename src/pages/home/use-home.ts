@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react'
 import contactsService, { OrderBy } from '@/services/contacts-service'
 
 import { toast } from '@/utils/toast'
@@ -16,10 +16,11 @@ export function useHome () {
     contactBeingDeleted,
     setContactBeingDeleted,
   ] = useState<Contact | null>(null)
+  const deferredSearch = useDeferredValue(search)
 
   const filteredContacts = useMemo(() => contacts.filter(contact =>
-    contact.name.toLocaleLowerCase().includes(search.toLowerCase()),
-  ), [contacts, search])
+    contact.name.toLocaleLowerCase().includes(deferredSearch.toLowerCase()),
+  ), [contacts, deferredSearch])
 
   async function fetchContacts (orderBy: OrderBy) {
     try {
@@ -40,9 +41,9 @@ export function useHome () {
     fetchContacts(orderBy)
   }, [orderBy])
 
-  function handleToggleOrderBy () {
+  const handleToggleOrderBy = useCallback(() => {
     setOrderBy(orderBy => orderBy === 'asc' ? 'desc' : 'asc')
-  }
+  }, [])
 
   function handleSearchChange (e: React.ChangeEvent<HTMLInputElement>) {
     setSearch(e.target.value)
@@ -82,10 +83,10 @@ export function useHome () {
     }
   }
 
-  function handleDeleteContact (contact: Contact) {
+  const handleDeleteContact = useCallback((contact: Contact) => {
     setIsDeleteModalVisible(true)
     setContactBeingDeleted(contact)
-  }
+  }, [])
 
   function handleCloseDeleteModal () {
     setIsDeleteModalVisible(false)
