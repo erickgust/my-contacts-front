@@ -22,24 +22,33 @@ export function useHome () {
     contact.name.toLocaleLowerCase().includes(deferredSearch.toLowerCase()),
   ), [contacts, deferredSearch])
 
-  async function fetchContacts (orderBy: OrderBy) {
+  const fetchContacts = useCallback(async (signal?: AbortSignal) => {
     try {
       setIsLoading(true)
 
-      const contacts = await contactsService.listContacts(orderBy)
+      const contacts = await contactsService.listContacts(orderBy, signal)
 
       setHasError(false)
       setContacts(contacts)
-    } catch {
-      setHasError(true)
-    } finally {
       setIsLoading(false)
+    } catch (err) {
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        return
+      }
+
+      setIsLoading(false)
+      setHasError(true)
+      setContacts([])
     }
-  }
+  }, [orderBy])
 
   useEffect(() => {
-    fetchContacts(orderBy)
-  }, [orderBy])
+    const controller = new AbortController()
+
+    fetchContacts(controller.signal)
+
+    return () => controller.abort()
+  }, [fetchContacts])
 
   const handleToggleOrderBy = useCallback(() => {
     setOrderBy(orderBy => orderBy === 'asc' ? 'desc' : 'asc')
@@ -50,7 +59,7 @@ export function useHome () {
   }
 
   function handleTryAgain () {
-    fetchContacts(orderBy)
+    fetchContacts()
   }
 
   async function handleConfirmDeleteContact () {

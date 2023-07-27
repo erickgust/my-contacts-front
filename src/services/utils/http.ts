@@ -2,9 +2,8 @@ import { APIError } from '@/errors/api-error'
 import { delay } from '@/utils/delay'
 
 type Options = {
-  headers?: Record<string, string>
   body?: Record<string, unknown>
-}
+} & Omit<RequestInit, 'body'>
 
 class HttpClient {
   baseUrl: string
@@ -45,12 +44,16 @@ class HttpClient {
           'Content-Type': 'application/json',
           ...options?.headers,
         },
+        signal: options?.signal,
       })
     }
   }
 
   get (path: string, options?: Options) {
-    return this.request(path, { headers: options?.headers })
+    return this.request(path, {
+      headers: options?.headers,
+      signal: options?.signal,
+    })
   }
 
   post (path: string, options?: Options) {

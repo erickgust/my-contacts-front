@@ -22,16 +22,22 @@ export function useEditContact () {
   const history = useHistory()
 
   useEffect(() => {
+    const controller = new AbortController()
+
     async function loadContact () {
       try {
-        const contact = await contactsService.getContactById(id)
+        const contact = await contactsService.getContactById(id, controller.signal)
 
         safeAsyncAction(() => {
           contactFormRef.current?.setFieldsValue(contact)
           setIsLoading(false)
           setContactName(contact.name)
         })
-      } catch {
+      } catch (err) {
+        if (err instanceof DOMException && err.name === 'AbortError') {
+          return
+        }
+
         safeAsyncAction(() => {
           history.push('/')
 
@@ -44,6 +50,8 @@ export function useEditContact () {
     }
 
     loadContact()
+
+    return () => controller.abort()
   }, [id, history, safeAsyncAction])
 
   async function handleSubmit (contact: ContactFormData) {

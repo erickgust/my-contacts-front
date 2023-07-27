@@ -10,16 +10,17 @@ class ContactsService {
     this.httpClient = new HttpClient('http://localhost:3333')
   }
 
-  async listContacts (orderBy: OrderBy = 'asc') {
+  async listContacts (orderBy: OrderBy = 'asc', signal?: AbortSignal) {
     const contacts: ContactResponse[] = await this.httpClient.get(
       `/contacts?orderBy=${orderBy}`,
+      { signal },
     )
 
     return contacts.map(contactMapper.toDomain)
   }
 
-  async getContactById (id: string) {
-    const contact: ContactResponse = await this.httpClient.get(`/contacts/${id}`)
+  async getContactById (id: string, signal?: AbortSignal) {
+    const contact: ContactResponse = await this.httpClient.get(`/contacts/${id}`, { signal })
 
     return contactMapper.toDomain(contact)
   }

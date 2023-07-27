@@ -41,9 +41,11 @@ export function useContactForm (
   }), [])
 
   useEffect(() => {
+    const controller = new AbortController()
+
     async function loadCategories () {
       try {
-        const categoriesList = await categoriesService.listCategories()
+        const categoriesList = await categoriesService.listCategories(controller.signal)
 
         setCategories(categoriesList)
       } catch {} finally {
@@ -52,6 +54,8 @@ export function useContactForm (
     }
 
     loadCategories()
+
+    return () => controller.abort()
   }, [])
 
   function handleNameChange (e: React.ChangeEvent<HTMLInputElement>) {
