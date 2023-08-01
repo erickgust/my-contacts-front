@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { ContactFormRef } from '@/components/contact-form'
 
@@ -19,14 +19,14 @@ export function useEditContact () {
   const contactFormRef = useRef<ContactFormRef>(null)
   const safeAsyncAction = useSafeAsyncAction()
   const { id } = useParams<Params>()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const controller = new AbortController()
 
     async function loadContact () {
       try {
-        const contact = await contactsService.getContactById(id, controller.signal)
+        const contact = await contactsService.getContactById(id || '', controller.signal)
 
         safeAsyncAction(() => {
           contactFormRef.current?.setFieldsValue(contact)
@@ -39,7 +39,7 @@ export function useEditContact () {
         }
 
         safeAsyncAction(() => {
-          history.push('/')
+          navigate('/', { replace: true })
 
           toast({
             type: 'error',
@@ -52,11 +52,11 @@ export function useEditContact () {
     loadContact()
 
     return () => controller.abort()
-  }, [id, history, safeAsyncAction])
+  }, [id, navigate, safeAsyncAction])
 
   async function handleSubmit (contact: ContactFormData) {
     try {
-      const updatedContact = await contactsService.updateContact(id, contact)
+      const updatedContact = await contactsService.updateContact(id || '', contact)
 
       setContactName(updatedContact.name)
       toast({

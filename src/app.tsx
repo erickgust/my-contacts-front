@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Header } from './components/header'
-import { Routes } from './routes'
+import { Router } from './router'
 
 const Container = styled.div`
   width: 100%;
@@ -13,7 +13,7 @@ function App () {
   return (
     <Container>
       <Header/>
-      <Routes />
+      <Router />
     </Container>
   )
 }
