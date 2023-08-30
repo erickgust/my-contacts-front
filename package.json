@@ -1,7 +1,13 @@
 {
-  "name": "boilerplate-ts-react",
+  "name": "my-contacts",
   "private": true,
   "version": "0.0.0",
+  "license":"MIT",
+  "author": "Erick Gustavo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erickgust/my-contacts-front.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
