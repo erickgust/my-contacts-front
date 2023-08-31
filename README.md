@@ -17,7 +17,7 @@
 Clone this project:
 
 ```sh
-git clone git@github.com:erickgust/calculator-js.git
+git clone git@github.com:erickgust/my-contacts-front.git
 ```
 
 Install the dependencies:
